@@ -1,0 +1,59 @@
+import React, { useEffect, useState } from "react";
+import { TaskDTO } from "./../services/tasks";
+import TaskCards from "../components/TaskCards/TaskCards";
+import { api } from "../services/api";
+import { deleteTask, duplicateTask, updateTask, } from "../utils/taskUtils";
+
+
+  const TaskListPage: React.FC = () => {
+  const [tasks, setTasks] = useState<TaskDTO[]>([]);
+
+
+    useEffect(() => {
+      fetchTasks();
+    }, []); 
+
+  const fetchTasks = async () => {
+    try {
+    const response = await api.get<{ tasks: TaskDTO[] }>("/todos");  
+      const fetchedTasks = response.data.tasks; 
+      setTasks(fetchedTasks);
+      
+    } catch (error) {
+      console.error("Failed to fetch tasks:", error);
+    }
+  };
+
+  const onUpdate = (taskToUpdate: TaskDTO) => {
+    const updatedTasks = updateTask(tasks, taskToUpdate);
+    setTasks(updatedTasks);
+  };
+
+  const onDelete = (taskId: number) => {
+    const updatedTasks = deleteTask(tasks, taskId);
+    setTasks(updatedTasks);
+  };
+
+  const onDuplicate = (taskId: number) => {
+    const taskToDuplicate = tasks.find((task) => task.id === taskId);
+    if (!taskToDuplicate) return;
+    const updatedTasks = duplicateTask(tasks, taskToDuplicate);
+    setTasks(updatedTasks);
+  };
+
+  return (
+    <div>
+      <h1>Task genie</h1>
+      <TaskCards
+        tasks={tasks}
+        onUpdate={onUpdate}
+        onDelete={onDelete}
+        onDuplicate={onDuplicate}
+        onTasksUpdated={setTasks}
+      />
+    </div>
+  );
+};
+
+export default TaskListPage;
+

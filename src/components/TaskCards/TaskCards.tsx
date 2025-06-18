@@ -1,27 +1,19 @@
 import React from "react";
 import styles from "./TaskCards.module.scss";
-import { TaskDTO } from "../services/tasks";
+import { TaskDTO } from "../../services/tasks";
 
-interface TaskCardsProps {
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrash, faClone } from "@fortawesome/free-solid-svg-icons";
+
+export interface TaskCardsProps {
   tasks: TaskDTO[];
   onTasksUpdated: (updatedTasks: TaskDTO[]) => void;
+  onUpdate: (taskToUpdate: TaskDTO) => void;
+  onDelete: (taskId: number) => void;
+  onDuplicate: (taskId: number) => void;
 }
 
-// export interface Category {
-//   categoryID: number;
-//   categoryType: string;
-// }
-
-// export interface TaskDTO {
-//   id: number;
-//   taskName: string;
-//   dueDate: string;
-//   categoryTypes: Category[];
-//   completed: boolean;
-//   archived: boolean;
-// }
-
-const TaskCards: React.FC<TaskCardsProps> = ({ tasks, onTasksUpdated }) => {
+const TaskCards: React.FC<TaskCardsProps> = ({ tasks, onTasksUpdated, onUpdate, onDelete, onDuplicate }) => {
   console.log("totally", tasks);
 
   return (
@@ -38,8 +30,13 @@ const TaskCards: React.FC<TaskCardsProps> = ({ tasks, onTasksUpdated }) => {
               Categories: {task.categories.map(cat => cat.categoryType).join(", ")}
             </p>
           )}
+          <button><FontAwesomeIcon icon={faClone} onClick={() => onDuplicate(task.id)}/></button>
+          <button><FontAwesomeIcon icon={faEdit} onClick={() => onUpdate(task)}/></button>
+          <button><FontAwesomeIcon icon={faTrash} onClick={() => onDelete(task.id)}/></button>
         </div>
       ))}
+
+      
     </div>
   );
 };

@@ -21,10 +21,8 @@ export const taskService = {
     return api.get("/todos", { params });
   },
 
-  // export const taskService = {
-  // getAllTasks: () =>  api.get("/todos", {}),
 
-   getTaskById: (id: number) => api.get(`/todos/${id}`),
+  getTaskById: (id: number) => api.get(`/todos/${id}`),
 
   createTask: (data: TaskDTO) => api.post("/todos", data),
 
@@ -32,12 +30,4 @@ export const taskService = {
 
   deleteTask: (id: number) => api.delete(`/todos/${id}`),
 
-  getAllCategories: () => api.get("/categories"),
-
-  createCategory: (data: Category) => api.post("/categories", data),
-
-  updateCategory: (id: number, data: Category) => api.put(`/categories/${id}`, data),
-  
-  deleteCategory: (id: number, data: Category) => 
-    api.delete(`/categories/${id}`, { data }),
 };

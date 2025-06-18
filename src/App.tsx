@@ -1,40 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { TaskDTO } from "./services/tasks";
-import TaskCards from "./components/TaskCards";
-import { api } from "./services/api";
-
-
+import React from "react";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import SideBar from "./components/SideBar/Sidebar";
+import TaskListPage from "./pages/TaskListPage";
+import CategoryListPage from "./pages/CategoryListPage";
 
 const App: React.FC = () => {
-  const [tasks, setTasks] = useState<TaskDTO[]>([]);
-
-    useEffect(() => {
-    fetchTasks();
-  }, []); 
-
-  const fetchTasks = async () => {
-    try {
-    const response = await api.get<{ tasks: TaskDTO[] }>("/todos");  
-      const fetchedTasks = response.data.tasks; 
-      setTasks(fetchedTasks);
-      
-    } catch (error) {
-      console.error("Failed to fetch tasks:", error);
-    }
-  };
-
- 
-  const handleTasksUpdated = (updatedTasks: TaskDTO[]) => {
-    setTasks(updatedTasks);
-  };
-
-
   return (
-    <div>
-      <h1>Task genie</h1>
-
-      <TaskCards tasks={tasks} onTasksUpdated={handleTasksUpdated} />
-    </div>
+    <Router>
+      <SideBar>
+        <Routes>
+          <Route path="/" element={<Navigate to="/tasks" />} />
+          <Route path="/tasks" element={<TaskListPage />} />
+          <Route path="/categories" element={<CategoryListPage />} /> 
+        </Routes>
+      </SideBar>
+    </Router>
   );
 };
 
