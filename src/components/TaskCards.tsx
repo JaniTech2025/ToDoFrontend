@@ -1,37 +1,24 @@
 import React from "react";
-import styles from './TaskCards.module.scss';
-
-interface TaskDTO {
-  id: number;
-  taskName: string;
-  dueDate: string;
-  isCompleted: boolean;
-  isArchived: boolean;
-  categoryTypes: string[];
-}
+import styles from "./TaskCards.module.scss";
+import { TaskDTO } from "../services/tasks";
 
 interface TaskCardsProps {
   tasks: TaskDTO[];
+  onTasksUpdated: (updatedTasks: TaskDTO[]) => void;
 }
 
-const TaskCards: React.FC<TaskCardsProps> = ({ tasks }) => {
+const TaskCards: React.FC<TaskCardsProps> = ({ tasks, onTasksUpdated }) => {
+
   return (
-    <div className={styles.container}>
+    <div className={styles.cardsContainer}>
       {tasks.map((task) => (
         <div key={task.id} className={styles.card}>
-          <h3>{task.taskName}</h3>
-          <p>Due: {new Date(task.dueDate).toLocaleDateString()}</p>
-          <p>Status: {task.isCompleted ? "Completed" : "Pending"}</p>
-          {task.isArchived && <p className={styles.archived}>Archived</p>}
+          <h4>{task.taskName}</h4>
+          <p>Due: {task.dueDate}</p>
+          <p>Status: {task.completed ? "Completed" : "Pending"}</p>
+          <p>Archived: {task.archived ? "Yes" : "No"}</p>
           {task.categoryTypes?.length > 0 && (
-            <div className={styles.categories}>
-              {task.categoryTypes.map((cat, idx) => (
-                <span key={idx} className={styles.badge}>
-                  {cat}
-                </span>
-              ))}
-            </div>
-          )}
+            <p>Categories: {task.categoryTypes.map(cat => cat.categoryType).join(", ")}</p>          )}
         </div>
       ))}
     </div>
