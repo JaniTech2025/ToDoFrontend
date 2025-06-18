@@ -7,18 +7,37 @@ interface TaskCardsProps {
   onTasksUpdated: (updatedTasks: TaskDTO[]) => void;
 }
 
+// export interface Category {
+//   categoryID: number;
+//   categoryType: string;
+// }
+
+// export interface TaskDTO {
+//   id: number;
+//   taskName: string;
+//   dueDate: string;
+//   categoryTypes: Category[];
+//   completed: boolean;
+//   archived: boolean;
+// }
+
 const TaskCards: React.FC<TaskCardsProps> = ({ tasks, onTasksUpdated }) => {
+  console.log("totally", tasks);
 
   return (
-    <div className={styles.cardsContainer}>
+   <div className={styles.cardsContainer}>
       {tasks.map((task) => (
         <div key={task.id} className={styles.card}>
           <h4>{task.taskName}</h4>
           <p>Due: {task.dueDate}</p>
           <p>Status: {task.completed ? "Completed" : "Pending"}</p>
           <p>Archived: {task.archived ? "Yes" : "No"}</p>
-          {task.categoryTypes?.length > 0 && (
-            <p>Categories: {task.categoryTypes.map(cat => cat.categoryType).join(", ")}</p>          )}
+
+          {task.categories?.length > 0 && (
+            <p>
+              Categories: {task.categories.map(cat => cat.categoryType).join(", ")}
+            </p>
+          )}
         </div>
       ))}
     </div>

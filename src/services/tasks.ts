@@ -10,7 +10,7 @@ export interface TaskDTO {
   id: number;
   taskName: string;
   dueDate: string;
-  categoryTypes: Category[]; 
+  categories: Category[]; 
   completed: boolean;
   archived: boolean;
 }
