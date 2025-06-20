@@ -5,19 +5,20 @@ import { api } from "../services/api";
 import { deleteTask, duplicateTask, updateTask, } from "../utils/taskUtils";
 
 
+
   const TaskListPage: React.FC = () => {
   const [tasks, setTasks] = useState<TaskDTO[]>([]);
 
-
-    useEffect(() => {
-      fetchTasks();
-    }, []); 
+  useEffect(() => {
+    fetchTasks();
+  }, []); 
 
   const fetchTasks = async () => {
     try {
     const response = await api.get<{ tasks: TaskDTO[] }>("/todos");  
       const fetchedTasks = response.data.tasks; 
-      setTasks(fetchedTasks);
+      const filterDeleted = fetchedTasks.filter(task => (!task.archived));
+      setTasks(filterDeleted);
       
     } catch (error) {
       console.error("Failed to fetch tasks:", error);
@@ -34,12 +35,17 @@ import { deleteTask, duplicateTask, updateTask, } from "../utils/taskUtils";
     setTasks(updatedTasks);
   };
 
-  const onDuplicate = (taskId: number) => {
-    const taskToDuplicate = tasks.find((task) => task.id === taskId);
-    if (!taskToDuplicate) return;
-    const updatedTasks = duplicateTask(tasks, taskToDuplicate);
+  const onDuplicate = async (taskId: number) => {
+  const taskToDuplicate = tasks.find((task) => task.id === taskId);
+  if (!taskToDuplicate) return;
+
+  try {
+    const updatedTasks = await duplicateTask(tasks, taskToDuplicate);
     setTasks(updatedTasks);
-  };
+  } catch (error) {
+    console.error("Failed to duplicate task", error);
+  }
+};
 
   return (
     <div>
@@ -56,4 +62,3 @@ import { deleteTask, duplicateTask, updateTask, } from "../utils/taskUtils";
 };
 
 export default TaskListPage;
-

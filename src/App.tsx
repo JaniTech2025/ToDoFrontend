@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import SideBar from "./components/SideBar/Sidebar";
 import TaskListPage from "./pages/TaskListPage";
 import CategoryListPage from "./pages/CategoryListPage";
+// import { Category } from "./services/categories";
 
 const App: React.FC = () => {
+  // const [category, setCategories] = useState<Category[]>([]);
+
+
+
   return (
     <Router>
       <SideBar>

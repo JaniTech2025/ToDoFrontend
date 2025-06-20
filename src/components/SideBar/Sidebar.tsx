@@ -12,7 +12,7 @@ const SideBar: React.FC<SideBarProps> = ({ children }) => {
   return (
     <div className={styles.container}>
       <aside className={styles.sidebar}>
-        <h1 className={styles.logo}>ToDo App</h1>
+        {/* <h1 className={styles.logo}>ToDo App</h1> */}
         <nav className={styles.nav}>
           <Link
             to="/tasks"
