@@ -7,26 +7,24 @@ import { api } from "../../services/api";
 
 interface PickCategoryProps{
     taskcategories: Category[];
+    onDataFromChild: (data: Category[]) => void;
 }
 
-const PickCategory: React.FC<PickCategoryProps> = ({ taskcategories}) => {  const [categories, setCategories] = useState<Category[]>([]);
-  const [newCategoryType, setNewCategoryType] = useState("");
-  const [checkedArr, setCheckedArr] = useState<boolean[]>([]);
-  const [taskName, setTaskName] = useState("");
+const PickCategory: React.FC<PickCategoryProps> = ({ taskcategories, onDataFromChild}) => {  const [categories, setCategories] = useState<Category[]>([]);
+  // const [categories, setCategories] = React.useState<Category[]>([]);
+  // const [checkedArr, setCheckedArr] = useState<boolean[]>([]);
+    // const [inputValue,setInputValue] = useState('');  
+  // const [taskName, setTaskName] = useState("");
+  const checkboxRefs = React.useRef<(HTMLInputElement | null)[]>([]);  
 
 
-  const filterCheckedCategories = (
-  allcategories: Category[], 
-  selectedcategories: Category[]
-): boolean[] => {
 
-
-        const selCatTypes = selectedcategories.map((s) => s.categoryType); 
-        const selArr = allcategories.map(c => selCatTypes.includes(c.categoryType));
-
-        
-   return selArr;      
-}
+const filterCheckedCategories = (
+  allcategories: Category[],
+  selectedcategory: string[]
+): Category[] => {
+  return allcategories.filter(c => selectedcategory.includes(c.categoryType));
+};
 
 
 
@@ -34,12 +32,19 @@ const PickCategory: React.FC<PickCategoryProps> = ({ taskcategories}) => {  cons
     fetchCategories(); 
   }, []); 
 
-useEffect(() => {
-  if (categories.length > 0 && taskcategories.length > 0) {
-    const initial = filterCheckedCategories(categories, taskcategories);
-    setCheckedArr(initial);
-  }
-}, [taskcategories, categories]);
+  useEffect(() => {
+    if (categories.length > 0 && taskcategories.length > 0) {
+      categories.forEach((category, i) => {
+        const isChecked = taskcategories.some(
+          (tc) => tc.categoryType === category.categoryType
+        );
+        if (checkboxRefs.current[i]) {
+          checkboxRefs.current[i]!.checked = isChecked;
+        }
+      });
+      sendDataToParent();
+    }
+  }, [categories, taskcategories]);
 
 
 
@@ -54,47 +59,38 @@ try {
 };
 
 
-const handleSelectCategory = async (e: FormEvent) => {
-  e.preventDefault();
-  if (!newCategoryType.trim()) return;
 
-  try {
-    const response = await categoryService.createCategory({
-      categoryType: newCategoryType.trim(),
-    });
+  const sendDataToParent = () => {
+    const selectedCategories = checkboxRefs.current
+      .filter((ref) => ref?.checked)
+      .map((ref) => ref!.value);
+    const selectedCat = filterCheckedCategories(categories, selectedCategories);
+    onDataFromChild(selectedCat);
+  };
 
-    setCategories((prev) => [...prev, response.data]);
-    setNewCategoryType("");
-  } catch (error) {
-    console.error("Failed to add category:", error);
-  }
-};
-
-
-  const handleChange = (index:number) => {
-    setCheckedArr(prev => {
-      const updated = [...prev];
-      updated[index] = !updated[index];
-      return updated;
-    });
+  const handleChange = () => {
+    sendDataToParent();
   };
 
 
 
   return (
     <div>
-        {/* <form onSubmit={handleSelectCategory}> */}
-            {categories.map((category, i) => (
-                <div key={i}>
-                    <label>{category.categoryType}</label>
-                    <input type="checkbox" checked={checkedArr[i]} onChange={() => handleChange(i)}></input>
-                </div>
-            ))}
-        {/* </form> */}
+      {categories.map((category, i) => (
+          <div key={i}>
+              <label>{category.categoryType}</label>
+             <input
+                type="checkbox"
+                value={category.categoryType}
+                ref={(ch) => {
+                  checkboxRefs.current[i] = ch;
+                }}
+                onChange={handleChange}
+              />
+          </div>
+      ))}
     </div>
   );
 };
 
 export default PickCategory;
-
-

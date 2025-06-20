@@ -1,13 +1,12 @@
 import React, { FormEvent, useState } from "react";
 import styles from "./TaskCards.module.scss";
 import { Category, TaskDTO } from "../../services/tasks";
-// import { Category } from "../../services/tasks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash, faClone } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../Modal/Modal";
-// import PickCategory from "../PickCategory/PickCategory";
-// import { updateTask } from "../../utils/taskUtils";
+import PickCategory from "../PickCategory/PickCategory";
 import {useRef} from "react";
+import { data } from "react-router";
 
 interface TaskCardsProps {
   tasks: TaskDTO[];
@@ -23,19 +22,27 @@ const TaskCards: React.FC<TaskCardsProps> = ({ tasks, onTasksUpdated, onUpdate, 
   const [selectedcategories, setSelectedCategories] = useState<Category[]>([]);
   const [taskName, setTaskName] = useState("");  
   const taskNameRef = useRef<HTMLInputElement>(null);
+  // const [dataFromChild,setDataFromChild] = useState('');
+
+  
 
   const openModal = (task: TaskDTO) => {
-    setSelectedTask(task);    
-    setIsModalOpen(true);
-    const mapped = task.categories.map((c) => ({
-    categoryID: c.categoryID ?? 0, 
-    categoryType: c.categoryType,
-  }));
-  setSelectedCategories(mapped);    
-  setSelectedCategories(task.categories);    
-  setTaskName(task.taskName);  
+      setSelectedTask(task);    
+      setIsModalOpen(true);
+      const mapped = task.categories.map((c) => ({
+      categoryID: c.categoryID ?? 0, 
+      categoryType: c.categoryType,
+    }));
+    setSelectedCategories(mapped);    
+    setSelectedCategories(task.categories);    
+    setTaskName(task.taskName);  
   };
   const closeModal = () => setIsModalOpen(false);
+
+  const handleDataFromChild = (data: Category[]) => {
+    setSelectedCategories(data);
+    // console.log("Data from child:", data);
+  };
 
 
 
@@ -49,11 +56,13 @@ const TaskCards: React.FC<TaskCardsProps> = ({ tasks, onTasksUpdated, onUpdate, 
       const editedTask: TaskDTO = {
         ...selectedTask,
         taskName: nameFromInput,
-        categories: selectedcategories,
+        categories: selectedcategories
       };
 
-      onUpdate(editedTask);
 
+      // console.log("calling update from here");
+      // console.log("sending", taskName, selectedcategories);
+      onUpdate(editedTask);
 
       closeModal(); 
   }
@@ -66,7 +75,7 @@ const TaskCards: React.FC<TaskCardsProps> = ({ tasks, onTasksUpdated, onUpdate, 
           <h4>{task.taskName}</h4>
           <hr></hr>
           <p>Due on: {task.dueDate}</p>
-          <p>Status: {task.completed ? "Completed" : "Pending"}</p>
+          <p>Status: {task.isCompleted ? "Completed" : "Pending"}</p>
 
           {task.categories?.length > 0 && (
             <p>
@@ -85,7 +94,7 @@ const TaskCards: React.FC<TaskCardsProps> = ({ tasks, onTasksUpdated, onUpdate, 
             <div className={styles.container}>
             <form onSubmit={handleSubmit}>
               <h4>Edit Task & categories</h4>
-              {/* <PickCategory taskcategories={selectedTask.categories} /> */}
+              <PickCategory taskcategories={selectedTask.categories} onDataFromChild={handleDataFromChild} />
               <input
                 type="text"
                 defaultValue={selectedTask.taskName}

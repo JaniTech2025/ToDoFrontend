@@ -1,38 +1,18 @@
 import { api } from "../services/api";
 import { TaskDTO } from "../services/tasks";
 
-// export const duplicateTask = (
-//   tasks: TaskDTO[],
-//   taskToDuplicate: TaskDTO
-// ): TaskDTO[] => {
-//    const ids = tasks.map(task => task.id).filter((id): id is number => typeof id === "number");
-//    const maxId = ids.length > 0 ? Math.max(...ids) : 0;  const newTask: TaskDTO = {
-//     ...taskToDuplicate,
-//     taskName: `${taskToDuplicate.taskName}_copy${maxId + 1}`,
-//   };
-
-//   if(newTask.categories.length>0){
-//       api.post("/todos", convertCategory(newTask));
-//   }
-//   else{
-//       console.log("since there are no categories");
-//       console.log("Update for duplication goes from here and it has the task id", newTask.id, newTask.taskName, newTask.categories);
-//       api.post("/todos", newTask);
-//   }
-//   return [...tasks, newTask];
-// };
-
 export const duplicateTask = async (
   tasks: TaskDTO[],
   taskToDuplicate: TaskDTO
 ): Promise<TaskDTO[]> => {
 
 
-  const newTask = {
-    ...taskToDuplicate,
-    taskName: `${taskToDuplicate.taskName}_copy`+ Date.now().toString().slice(-2),
-    categoryTypes: taskToDuplicate.categoryTypes ?? [],
-  };
+const newTask = {
+  ...taskToDuplicate,
+  taskName: `${taskToDuplicate.taskName}_copy` + Date.now().toString().slice(-3),
+  categoryTypes: taskToDuplicate.categoryTypes ?? [],
+  completed: taskToDuplicate.isCompleted,  
+};
 
 
   const payloadToSend = newTask.categories.length > 0 
@@ -40,9 +20,12 @@ export const duplicateTask = async (
     : newTask;
 
   try {
+
     const response = await api.post<TaskDTO>("/todos", payloadToSend);
 
     const createdTask = response.data;
+    console.log("created", createdTask);
+
 
     return [...tasks, createdTask];
   } catch (error) {
@@ -52,22 +35,41 @@ export const duplicateTask = async (
 };
 
 
-export const updateTask = (
+export const updateTask = async (
   tasks: TaskDTO[],
   updatedTask: TaskDTO
-): TaskDTO[] => {
-  // taskService.updateTask(updatedTask.id, updatedTask);
-  // api.put(`/todos/${updatedTask.id}`, updatedTask);
-  return tasks.map((task) => (task.id === updatedTask.id ? updatedTask : task));
+): Promise<TaskDTO[]> => {
+
+    const payloadToSend = updatedTask.categories.length > 0 
+    ? convertCategory(updatedTask)
+    : updatedTask;
+
+  try{
+
+    const response = await api.put<TaskDTO>(`/todos/${payloadToSend.id}`, payloadToSend);
+    const updateTask = response.data;
+    console.log("This is from utils", updateTask);
+    return tasks.map((task) => (task.id === updateTask.id ? updateTask : task));
+
+
+  } catch(error){
+    console.error("Unable to update taskname", error);
+    return tasks;
+  }
 };
 
-export const deleteTask = (
+export const deleteTask = async(
   tasks: TaskDTO[],
   taskId: number
-): TaskDTO[] => {
-  // taskService.deleteTask(taskId);
-  api.delete(`/todos/${taskId}`)  
+): Promise<TaskDTO[]> => {
+  try{
+    await api.delete(`/todos/${taskId}`) 
+  }
+  catch(e){
+    console.error("Unable to delete task");
+  }
   return tasks.filter((task) => task.id !== taskId);
+
 };
 
 

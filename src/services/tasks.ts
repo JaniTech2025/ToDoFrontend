@@ -11,15 +11,10 @@ export interface TaskDTO {
   taskName: string;
   dueDate: string;
   categories: Category[]; 
-  completed: boolean;
-  archived: boolean;
+  isCompleted: boolean;
+  isArchived: boolean;
   categoryTypes?: string[];
 }
-
-// export interface convertedCategory{
-//   categoryTypes: string;
-// }
-
 
 export const taskService = {
   getAllTasks: (categories?: string[]) => {
@@ -31,12 +26,5 @@ export const taskService = {
 
   getTaskById: (id: number) => api.get(`/todos/${id}`),
 
-  // createTask: (data: TaskDTO) => api.post("/todos", data),
-
-  // updateTask: (id: number, data: TaskDTO) => api.put(`/todos/${id}`, data),
-
-  // deleteTask: (id: number) => {api.delete(`/todos/${id}`)
-  //             console.log("called delete from taskutils");
-  //             },
  
 };
