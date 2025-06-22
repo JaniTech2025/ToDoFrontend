@@ -10,19 +10,18 @@ import { data } from "react-router";
 
 interface TaskCardsProps {
   tasks: TaskDTO[];
-  onTasksUpdated: (updatedTasks: TaskDTO[]) => void;
+  // onTasksUpdated: (updatedTasks: TaskDTO[]) => void;
   onUpdate: (taskToUpdate: TaskDTO) => void;
   onDelete: (taskId: number) => void;
   onDuplicate: (taskId: number) => void;
 }
 
-const TaskCards: React.FC<TaskCardsProps> = ({ tasks, onTasksUpdated, onUpdate, onDelete, onDuplicate }) => {
+const TaskCards: React.FC<TaskCardsProps> = ({ tasks, onUpdate, onDelete, onDuplicate }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState<TaskDTO | null>(null);
   const [selectedcategories, setSelectedCategories] = useState<Category[]>([]);
   const [taskName, setTaskName] = useState("");  
   const taskNameRef = useRef<HTMLInputElement>(null);
-  // const [dataFromChild,setDataFromChild] = useState('');
 
   
 
@@ -49,7 +48,7 @@ const TaskCards: React.FC<TaskCardsProps> = ({ tasks, onTasksUpdated, onUpdate, 
   function handleSubmit(event: FormEvent<HTMLFormElement>): void {
       event.preventDefault(); 
 
-      const nameFromInput = taskNameRef.current?.value || "";
+      const nameFromInput = taskNameRef.current?.value || "new task";
 
       if (!selectedTask) return;
 

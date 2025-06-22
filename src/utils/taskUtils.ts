@@ -73,7 +73,7 @@ export const deleteTask = async(
 };
 
 
-const convertCategory = (toconverttask: TaskDTO) => {
+export const convertCategory = (toconverttask: TaskDTO) => {
      const convertedCategories = toconverttask.categories.map(cat => 
        cat.categoryType
     );
@@ -86,3 +86,27 @@ const convertCategory = (toconverttask: TaskDTO) => {
 
    return convertedtask;
 };
+
+
+export const createTask = async (
+  tasks: TaskDTO[],
+  taskToCreate: TaskDTO
+): Promise<TaskDTO[]> => {
+
+  const payloadToSend = taskToCreate.categories.length > 0 
+    ? convertCategory(taskToCreate)
+    : taskToCreate;
+  try{
+
+    const response = await api.post<TaskDTO>(`/todos`, payloadToSend);
+    const taskCreated = response.data;
+    // console.log("This is from utils", taskCreated);
+    return [...tasks, taskCreated];
+
+
+  } catch(error){
+    console.error("Unable to create taskname", error);
+    return tasks;
+  }
+};
+

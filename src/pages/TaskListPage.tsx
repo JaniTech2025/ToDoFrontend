@@ -2,12 +2,21 @@ import React, { useEffect, useState } from "react";
 import { TaskDTO } from "./../services/tasks";
 import TaskCards from "../components/TaskCards/TaskCards";
 import { api } from "../services/api";
-import { deleteTask, duplicateTask, updateTask, } from "../utils/taskUtils";
+import { createTask, deleteTask, duplicateTask, updateTask, } from "../utils/taskUtils";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSquarePlus} from "@fortawesome/free-solid-svg-icons";
+import Modal from "../components/Modal/Modal";
+import AddTaskForm from "../components/AddTaskForm/AddTaskForm";
 
 
 
   const TaskListPage: React.FC = () => {
   const [tasks, setTasks] = useState<TaskDTO[]>([]);
+  const [isModalOpen, setModalOpen] = useState(false);
+
+
+  const closeModal = () => {setModalOpen(false)};
+
 
   useEffect(() => {
     fetchTasks();
@@ -36,6 +45,17 @@ import { deleteTask, duplicateTask, updateTask, } from "../utils/taskUtils";
     setTasks(updatedTasks);
   };
 
+    const onCreate = async (newTask: TaskDTO) => {
+      try{
+        const createdTasks = await createTask(tasks, newTask);
+        setTasks(createdTasks);
+      }
+      catch(error){
+        console.log("Unable to create task", error);
+      }
+  };
+
+
   const onDuplicate = async (taskId: number) => {
     const taskToDuplicate = tasks.find((task) => task.id === taskId);
     if (!taskToDuplicate) return;
@@ -48,15 +68,24 @@ import { deleteTask, duplicateTask, updateTask, } from "../utils/taskUtils";
     }
   };
 
+    const handleClick = () => {
+      console.log("Add task");
+      setModalOpen(true);
+    };
+
+
   return (
     <div>
-      <h1>Task genie</h1>
+      <h1>Task genie</h1> 
+      <h2>Add Task <FontAwesomeIcon icon={faSquarePlus} size="lg" onClick={handleClick}/></h2>
+      {isModalOpen && <Modal onClose={closeModal} isOpen={isModalOpen}><h2>Add a task</h2><AddTaskForm tasks={tasks}  onTaskCreated={onCreate}
+      closeModal={closeModal}/></Modal>}
       <TaskCards
         tasks={tasks}
         onUpdate={onUpdate}
         onDelete={onDelete}
         onDuplicate={onDuplicate}
-        onTasksUpdated={setTasks}
+        // onTasksUpdated={setTasks}
       />
     </div>
   );

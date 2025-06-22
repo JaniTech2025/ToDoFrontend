@@ -10,11 +10,8 @@ interface PickCategoryProps{
     onDataFromChild: (data: Category[]) => void;
 }
 
-const PickCategory: React.FC<PickCategoryProps> = ({ taskcategories, onDataFromChild}) => {  const [categories, setCategories] = useState<Category[]>([]);
-  // const [categories, setCategories] = React.useState<Category[]>([]);
-  // const [checkedArr, setCheckedArr] = useState<boolean[]>([]);
-    // const [inputValue,setInputValue] = useState('');  
-  // const [taskName, setTaskName] = useState("");
+const PickCategory: React.FC<PickCategoryProps> = ({ taskcategories, onDataFromChild}) => {  
+  const [categories, setCategories] = useState<Category[]>([]);
   const checkboxRefs = React.useRef<(HTMLInputElement | null)[]>([]);  
 
 
