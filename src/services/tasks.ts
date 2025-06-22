@@ -14,6 +14,7 @@ export interface TaskDTO {
   isCompleted: boolean;
   isArchived: boolean;
   categoryTypes?: string[];
+  overDue: boolean;
 }
 
 export const taskService = {

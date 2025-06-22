@@ -30,7 +30,7 @@ const filterCheckedCategories = (
   }, []); 
 
   useEffect(() => {
-    if (categories.length > 0 && taskcategories.length > 0) {
+    if (categories.length >= 0 && taskcategories.length > 0) {
       categories.forEach((category, i) => {
         const isChecked = taskcategories.some(
           (tc) => tc.categoryType === category.categoryType

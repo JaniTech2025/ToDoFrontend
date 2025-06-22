@@ -10,6 +10,7 @@ export const duplicateTask = async (
 const newTask = {
   ...taskToDuplicate,
   taskName: `${taskToDuplicate.taskName}_copy` + Date.now().toString().slice(-3),
+  dueDate: new Date().toISOString().split("T")[0],
   categoryTypes: taskToDuplicate.categoryTypes ?? [],
   completed: taskToDuplicate.isCompleted,  
 };
@@ -97,10 +98,10 @@ export const createTask = async (
     ? convertCategory(taskToCreate)
     : taskToCreate;
   try{
+    console.log("This is from utils", payloadToSend);
 
     const response = await api.post<TaskDTO>(`/todos`, payloadToSend);
     const taskCreated = response.data;
-    // console.log("This is from utils", taskCreated);
     return [...tasks, taskCreated];
 
 
@@ -109,4 +110,3 @@ export const createTask = async (
     return tasks;
   }
 };
-

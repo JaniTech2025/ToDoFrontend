@@ -2,15 +2,13 @@ import React, { FormEvent, useState } from "react";
 import styles from "./TaskCards.module.scss";
 import { Category, TaskDTO } from "../../services/tasks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrash, faClone } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faTrash, faClone, faClock } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../Modal/Modal";
 import PickCategory from "../PickCategory/PickCategory";
 import {useRef} from "react";
-import { data } from "react-router";
 
 interface TaskCardsProps {
   tasks: TaskDTO[];
-  // onTasksUpdated: (updatedTasks: TaskDTO[]) => void;
   onUpdate: (taskToUpdate: TaskDTO) => void;
   onDelete: (taskId: number) => void;
   onDuplicate: (taskId: number) => void;
@@ -23,7 +21,7 @@ const TaskCards: React.FC<TaskCardsProps> = ({ tasks, onUpdate, onDelete, onDupl
   const [taskName, setTaskName] = useState("");  
   const taskNameRef = useRef<HTMLInputElement>(null);
 
-  
+  console.log(tasks);
 
   const openModal = (task: TaskDTO) => {
       setSelectedTask(task);    
@@ -33,14 +31,14 @@ const TaskCards: React.FC<TaskCardsProps> = ({ tasks, onUpdate, onDelete, onDupl
       categoryType: c.categoryType,
     }));
     setSelectedCategories(mapped);    
-    setSelectedCategories(task.categories);    
+    setSelectedCategories(task.categories);   
+    console.log("Overdue", selectedTask?.overDue); 
     setTaskName(task.taskName);  
   };
   const closeModal = () => setIsModalOpen(false);
 
   const handleDataFromChild = (data: Category[]) => {
     setSelectedCategories(data);
-    // console.log("Data from child:", data);
   };
 
 
@@ -59,8 +57,6 @@ const TaskCards: React.FC<TaskCardsProps> = ({ tasks, onUpdate, onDelete, onDupl
       };
 
 
-      // console.log("calling update from here");
-      // console.log("sending", taskName, selectedcategories);
       onUpdate(editedTask);
 
       closeModal(); 
@@ -71,10 +67,11 @@ const TaskCards: React.FC<TaskCardsProps> = ({ tasks, onUpdate, onDelete, onDupl
       {tasks.map((task) => (
 
         <div key={task.id} className={styles.card}>
-          <h4>{task.taskName}</h4>
+          <h4>{task.overDue? <FontAwesomeIcon icon={faClock} color="red" /> : <FontAwesomeIcon icon={faClock} color="green" />}  {task.taskName}
+          </h4>
           <hr></hr>
-          <p>Due on: {task.dueDate}</p>
-          <p>Status: {task.isCompleted ? "Completed" : "Pending"}</p>
+          {/* <p>Due on: {task.dueDate}</p> */}
+          {/* <p>Status: {task.isCompleted ? "Completed" : "Pending"}</p> */}
 
           {task.categories?.length > 0 && (
             <p>

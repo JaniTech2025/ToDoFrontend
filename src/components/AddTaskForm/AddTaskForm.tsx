@@ -41,7 +41,7 @@ const AddTaskForm:React.FC<TaskFormProps> = ({tasks, onTaskCreated, closeModal})
         const mm = String(dateRef.current!.getMonth() + 1).padStart(2, '0'); 
         const dd = String(dateRef.current!.getDate()).padStart(2, '0');
         const formattedDate = `${yyyy}-${mm}-${dd}`;
-        // console.log(formattedDate);   
+        console.log(formattedDate);   
 
         const createdueDate = dateRef.current!.toISOString().split("T")[0];
         const createName = newTaskRef.current?.value || "new task";
@@ -62,6 +62,7 @@ const AddTaskForm:React.FC<TaskFormProps> = ({tasks, onTaskCreated, closeModal})
           dueDate: formattedDate,
           isArchived: false,
           isCompleted: false,
+          overDue: false,
           id: 0
       };
 
