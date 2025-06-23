@@ -1,6 +1,100 @@
-.react-datepicker-wrapper,
-.react-datepicker__input-container,
-.react-datepicker__input-container input {
-    display: block;
-    width: 100%;
+.form {
+    background-color: black;
+    color: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    font-family: Arial, sans-serif;
+    max-width: 500px;
+    margin: 0 auto;
+
+    label {
+        display: block;
+        font-weight: bold;
+        font-size: 0.9rem;
+        margin-bottom: 0.4rem;
+        color: white;
+    }
+
+    input[type="text"] {
+        background-color: white;
+        color: black;
+        border: 1px solid white;
+        padding: 0.5rem;
+        border-radius: 0.3rem;
+        margin-bottom: 1rem;
+        width: 100%;
+        font-size: 1rem;
+
+
+        &:focus {
+            outline: none;
+            border-color: gray;
+        }
+    }
+
+    button {
+        background-color: black;
+        color: white;
+        border: 2px solid white;
+        padding: 0.6rem 1.2rem;
+        border-radius: 0.5rem;
+        font-weight: bold;
+        margin-right: 1rem;
+        cursor: pointer;
+        transition: 0.3s ease;
+
+        &:hover {
+            background-color: white;
+            color: black;
+        }
+
+        &:focus {
+            outline: none;
+            box-shadow: 0 0 4px 2px white;
+        }
+    }
+
+    .checkboxWrapper {
+        margin: 1rem 0;
+    }
+
+    .checkboxGroup {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.75rem;
+    }
+
+    .checkboxItem {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+
+        input[type="checkbox"] {
+            accent-color: white;
+            cursor: pointer;
+        }
+
+        label {
+            font-size: 0.85rem;
+            color: white;
+        }
+    }
+
+    .react-datepicker-wrapper,
+    .react-datepicker__input-container,
+    .react-datepicker__input-container input {
+        display: block;
+        width: 100%;
+        background-color: white;
+        color: white;
+        border: 1px solid white;
+        padding: 0.5rem;
+        margin-top: 0.4rem;
+
+
+        &:focus {
+            outline: none;
+            border-color: gray;
+        }
+    }
 }

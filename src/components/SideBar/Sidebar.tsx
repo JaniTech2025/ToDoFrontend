@@ -14,12 +14,12 @@ const SideBar: React.FC<SideBarProps> = ({ children }) => {
       <aside className={styles.sidebar}>
         {/* <h1 className={styles.logo}>ToDo App</h1> */}
         <nav className={styles.nav}>
-          <Link
+          {/* <Link
             to="/tasks"
             className={`${styles.link} ${location.pathname === "/tasks" ? styles.active : ""}`}
           >
             Tasks
-          </Link>
+          </Link> */}
           <Link
             to="/categories"
             className={`${styles.link} ${location.pathname === "/categories" ? styles.active : ""}`}

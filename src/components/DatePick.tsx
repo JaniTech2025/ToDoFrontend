@@ -2,6 +2,7 @@ import { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.min.css';
 
+
 interface DatepickProps {
   onDateChange: (date: Date) => void;
 }
@@ -14,7 +15,7 @@ const Datepick: React.FC<DatepickProps> = ({ onDateChange }) => {
             <DatePicker
                 wrapperClassName='input-attribute'
                 className='bg-white appearance-none px-4 py-4 rounded-lg shadow border-black text-black'
-                showIcon
+                // showIcon
                 withPortal
                 // excludeDateIntervals={[
                 //     { start: new Date(), end: new Date(new Date().setDate(new Date().getDate() + 2)) },
@@ -78,7 +79,7 @@ const Datepick: React.FC<DatepickProps> = ({ onDateChange }) => {
                     </div>
                 )}
             />
-            <i className="fas fa-calendar absolute top-1/4 right-4 text-black"></i>
+            <i className="fas fa-calendar" style={{ color: 'white', position: 'absolute', top: '25%', right: '1rem' }}></i>
         </div>
     );
 

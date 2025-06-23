@@ -5,6 +5,7 @@ import { Category } from '../../services/tasks';
 import DatePick from '../DatePick';
 import { api } from '../../services/api';
 import {createTask} from '../../utils/taskUtils';
+import styles from "./AddTaskForm.module.scss";
 
 interface TaskFormProps{
     tasks: TaskDTO[];
@@ -46,7 +47,7 @@ const AddTaskForm:React.FC<TaskFormProps> = ({tasks, onTaskCreated, closeModal})
         const createdueDate = dateRef.current!.toISOString().split("T")[0];
         const createName = newTaskRef.current?.value || "new task";
         // const checklist: string = checkboxRefs.current?.values;
-        console.log('To create new task:\n', createdueDate, createName, checkboxRefs.current);
+        // console.log('To create new task:\n', createdueDate, createName, checkboxRefs.current);
         const newTaskCategories = checkboxRefs.current
                                      .filter((box) => box!.checked)
                                      .map((box) => box!.value);
@@ -96,36 +97,48 @@ const AddTaskForm:React.FC<TaskFormProps> = ({tasks, onTaskCreated, closeModal})
   }, []);   
 
 
-  return (
-    <form onSubmit={handleSubmit}>
-        <label>Task name:</label>
-        <input type="text"
-        placeholder="new task"
-        ref={newTaskRef}
-        />
-        <br/>
-        <label>Due date:</label>
-        <DatePick onDateChange={(date) => {
-            dateRef.current = date;
-        }} />
-        
-        {categories.map((category, i) => (
-        <div key={i}>
-            <label>{category.categoryType}</label>
-            <input
-                type="checkbox"
-                value={category.categoryType}
-                name={`category-${i}`}
-                ref={(check) => {
-                    checkboxRefs.current[i] = check;
-                }}
-            />
+return (
+<form className={styles.form} onSubmit={handleSubmit}>
+  <h2>Add a task</h2>  
+  <hr/>
+  <label htmlFor="taskname">Task name</label>
+  <input id="taskname" type="text" placeholder="new task" ref={newTaskRef} />
+
+
+  <label>Due date
+  <DatePick
+    onDateChange={(date) => {
+    dateRef.current = date;
+    }}
+  />
+  </label>
+
+  <div className={styles.checkboxWrapper}>
+    <div className={styles.checkboxGroup}>
+      {categories.map((category, i) => (
+        <div key={i} className={styles.checkboxItem}>
+          <input
+            type="checkbox"
+            id={`category-${i}`}
+            value={category.categoryType}
+            name={`category-${i}`}
+            ref={(check) => {
+              checkboxRefs.current[i] = check;
+            }}
+          />
+          <label htmlFor={`category-${i}`}>{category.categoryType}</label>
         </div>
-        ))}    
-        <button type="submit">Save</button>
-        <button type="button" onClick={closeModal}>Cancel</button>   
-    </form>
-  )
+      ))}
+    </div>
+  </div>
+
+  <button type="submit">Save</button>
+  <button type="button" onClick={closeModal}>
+    Cancel
+  </button>
+</form>
+);
+
 }
 
 export default AddTaskForm
