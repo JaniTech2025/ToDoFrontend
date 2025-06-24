@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import SideBar from "./components/SideBar/Sidebar";
 import TaskListPage from "./pages/TaskListPage";
-import CategoryListPage from "./pages/CategoryListPage";
+// import CategoryListPage from "./pages/CategoryListPage";
 // import { Category } from "./services/categories";
+import { CategoryProvider } from "./context/CategoryContext";
 
 const App: React.FC = () => {
   // const [category, setCategories] = useState<Category[]>([]);
@@ -11,15 +12,16 @@ const App: React.FC = () => {
 
 
   return (
-    <Router>
-      <SideBar>
-        <Routes>
-          <Route path="/" element={<Navigate to="/tasks" />} />
-          <Route path="/tasks" element={<TaskListPage />} />
-          <Route path="/categories" element={<CategoryListPage />} /> 
-        </Routes>
-      </SideBar>
-    </Router>
+    <CategoryProvider>  
+        <Router>
+          <SideBar>
+            <Routes>
+              <Route path="/" element={<Navigate to="/tasks" />} />
+              <Route path="/tasks" element={<TaskListPage />} />
+            </Routes>
+          </SideBar>
+        </Router>
+    </CategoryProvider>      
   );
 };
 

@@ -40,7 +40,6 @@
         border-radius: 0.5rem;
         font-weight: bold;
         margin-right: 1rem;
-        cursor: pointer;
         transition: 0.3s ease;
 
         &:hover {
@@ -71,7 +70,6 @@
 
         input[type="checkbox"] {
             accent-color: white;
-            cursor: pointer;
         }
 
         label {

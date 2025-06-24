@@ -64,7 +64,6 @@ const TaskCards: React.FC<TaskCardsProps> = ({ tasks, onUpdate, onDelete, onDupl
 
       onUpdate(editedTask);
 
-      showAlertModal("Your wish is my command: task updated");
 
       closeModal(); 
   }
@@ -73,9 +72,8 @@ const TaskCards: React.FC<TaskCardsProps> = ({ tasks, onUpdate, onDelete, onDupl
    <div className={styles.cardsContainer}>
       {tasks.map((task) => (
         <div key={task.id} className={styles.card}>
-          <h4>{task.overDue? <FontAwesomeIcon icon={faClock} color="red" /> : <FontAwesomeIcon icon={faClock} color="green" />}  {task.taskName}
-             </h4>
-          {/* <p>(Due on: {task.dueDate?.split("-").reverse().join("-")})</p>           */}
+          <h4>{task.overDue? <FontAwesomeIcon icon={faClock} color="red" /> : <FontAwesomeIcon icon={faClock} color="green" />}{task.taskName}
+          </h4>
 
           <hr></hr>
           
@@ -117,9 +115,9 @@ const TaskCards: React.FC<TaskCardsProps> = ({ tasks, onUpdate, onDelete, onDupl
         {alertModalText && (
           <Modal isOpen={!!alertModalText} onClose={() => setAlertModalText(null)}>
             <div className={styles.messageModal}>
-              <h3>Task Genie says:</h3>
+              <h3>Task Wizard says:</h3>
               <p>{alertModalText}</p>
-              <button onClick={() => setAlertModalText("")}>Poof!</button>
+              <button onClick={() => setAlertModalText(null)}>Poof!</button>
             </div>
           </Modal>
         )}

@@ -113,8 +113,8 @@
 }
 
 .messageModal {
-    background-color: black;
-    color: white;
+    background-color: white;
+    color: black;
     border-radius: 1rem;
     text-align: center;
 
@@ -129,16 +129,17 @@
     }
 
     button {
-        background-color: white;
-        color: black;
+        background-color: black;
+        color: white;
         border: none;
         border-radius: 0.5rem;
         font-weight: bold;
         margin-bottom: 10px;
+        padding: 10px 10px;
 
 
         &:hover {
-            background-color: white;
+            background-color: black;
         }
     }
 }

@@ -1,0 +1,80 @@
+.container {
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    max-width: 400px;
+    margin: auto;
+
+    h1 {
+        border-bottom: 1px solid white;
+        padding-bottom: 10px;
+    }
+
+    form {
+        margin-bottom: 20px;
+
+        input[type="text"] {
+            padding: 8px;
+            width: calc(100% - 110px);
+            margin-right: 10px;
+            border: 1px solid white;
+            background-color: black;
+            color: white;
+        }
+
+        button[type="submit"] {
+            padding: 8px 15px;
+            border: 1px solid white;
+            background-color: white;
+            color: black;
+            border-radius: 12px;
+            margin-top: 5px;
+
+
+            &:hover {
+                background-color: white;
+            }
+        }
+    }
+
+    .category-list {
+        div {
+            border-bottom: 1px solid white;
+            padding: 8px 0;
+
+            p {
+                margin: 0;
+            }
+        }
+    }
+
+    .modal {
+        color: white;
+        background-color: black;
+        padding: 20px;
+        border-radius: 4px;
+        justify-content: center;
+
+
+        h4 {
+            margin-top: 0;
+        }
+
+        hr {
+            border-color: white;
+        }
+
+        button {
+            padding: 8px 15px;
+            border: 1px solid white;
+            background-color: white;
+            color: black;
+            border-radius: 8px;
+
+            &:hover {
+                background-color: white;
+            }
+        }
+    }
+}

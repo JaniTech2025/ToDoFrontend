@@ -4,61 +4,76 @@ import TaskCards from "../components/TaskCards/TaskCards";
 import { api } from "../services/api";
 import { createTask, deleteTask, duplicateTask, updateTask, } from "../utils/taskUtils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSquarePlus} from "@fortawesome/free-solid-svg-icons";
+import { faHatWizard, faSquarePlus} from "@fortawesome/free-solid-svg-icons";
 import Modal from "../components/Modal/Modal";
 import AddTaskForm from "../components/AddTaskForm/AddTaskForm";
 import styles from "./TaskList.module.scss";
+import CategoryListPage from "../components/Categories/CategoryListPage";
+import { Category } from "../services/categories";
 
 
 
   const TaskListPage: React.FC = () => {
   const [tasks, setTasks] = useState<TaskDTO[]>([]);
   const [isModalOpen, setModalOpen] = useState(false);
+  const [isCatModalOpen, setCatModalOpen] = useState(false);
+  const [categories, setCategories] = useState<Category[]>([]);
+
+
   const [alertModalText, setAlertModalText] = useState<string | null>(null);  
 
 
 
-  const closeModal = () => {setModalOpen(false)};
+
+  const closeCatModal = () => {setCatModalOpen(false)};
 
   const showAlertModal = (message: string) => {
     setAlertModalText(message);
   };
 
-
-
   useEffect(() => {
-    fetchTasks();
-  }, []); 
-
-  const fetchTasks = async () => {
+  const fetchData = async () => {
     try {
-    const response = await api.get<{ tasks: TaskDTO[] }>("/todos");  
-      const fetchedTasks = response.data.tasks; 
-      const filterDeleted = fetchedTasks.filter(task => (!task.isArchived));
+      const [categoriesRes, tasksRes] = await Promise.all([
+        api.get<Category[]>("/categories"),
+        api.get<{ tasks: TaskDTO[] }>("/todos"),
+      ]);
+
+      const fetchedCategories = categoriesRes.data;
+      console.log("categories", fetchedCategories);
+      setCategories(fetchedCategories);
+
+      const fetchedTasks = tasksRes.data.tasks;
+      const filterDeleted = fetchedTasks.filter(task => !task.isArchived);
       setTasks(filterDeleted);
-      
+
     } catch (error) {
-      console.error("Failed to fetch tasks:", error);
+      console.error("Failed to fetch data:", error);
     }
   };
+
+  fetchData();
+}, []);
+
+
 
   const onUpdate = async (taskToUpdate: TaskDTO) => {
     console.log("this is from TaskListPage", taskToUpdate);
     const updatedTasks = await updateTask(tasks, taskToUpdate);
-    showAlertModal("Your wish is my command: task updated");
+    showAlertModal("Enchanted and executed: task updated");
     setTasks(updatedTasks);
   };
 
   const onDelete = async (taskId: number) => {
     const updatedTasks = await deleteTask(tasks, taskId);
-    showAlertModal("Your wish is my command: task deleted");
+    showAlertModal("Enchanted and executed: task deleted");
     setTasks(updatedTasks);
   };
 
     const onCreate = async (newTask: TaskDTO) => {
       try{
         const createdTasks = await createTask(tasks, newTask);
-       showAlertModal("Your wish is my command: task created");
+       showAlertModal("Enchanted and executed: task created");
         setTasks(createdTasks);
       }
       catch(error){
@@ -81,36 +96,56 @@ import styles from "./TaskList.module.scss";
     }
   };
 
-    const handleClick = () => {
-      console.log("Add task");
+    const handleAddTask = () => {
       setModalOpen(true);
     };
 
+    const handleAddCategory = () => {
+      setCatModalOpen(true);
+    }
+
 
   return (
-    <div>
-      <h1>Task genie</h1> 
-      <hr></hr>
-      <h2>Add Task <FontAwesomeIcon icon={faSquarePlus} size="lg" onClick={handleClick}/></h2>
-      <div className={styles.addTaskContainer}>{isModalOpen && <Modal onClose={closeModal} isOpen={isModalOpen}><AddTaskForm tasks={tasks}  onTaskCreated={onCreate}
-      closeModal={closeModal}/></Modal>}</div>
+      <div>
+        <h1>Task wizard <FontAwesomeIcon icon={faHatWizard} size="lg"/></h1> 
+        <hr></hr>
+        <div className={styles.subheading}>
+        <h2>Add Task <FontAwesomeIcon icon={faSquarePlus} size="lg" onClick={handleAddTask}/></h2>
+        <h2>Add Categories <FontAwesomeIcon icon={faSquarePlus} size="lg" onClick={handleAddCategory}/></h2>
+      </div>
       <TaskCards
         tasks={tasks}
         onUpdate={onUpdate}
         onDelete={onDelete}
         onDuplicate={onDuplicate}
-        // onTasksUpdated={setTasks}
       />
 
-    {alertModalText && (
-    <Modal isOpen={!!alertModalText} onClose={() => setAlertModalText(null)}>
-      <div className={styles.messageModal}>
-        <h3>Task Genie says:</h3>
-        <p>{alertModalText}</p>
-        <button onClick={() => setAlertModalText("")}>Poof!</button>
+
+      <div className={styles.catModalContainer}>
+        {isCatModalOpen && <Modal onClose={closeCatModal} isOpen={isCatModalOpen}><CategoryListPage/></Modal>}
       </div>
-    </Modal>
-  )}
+
+      {isModalOpen && (
+      <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
+        <AddTaskForm
+          tasks={tasks}
+          onTaskCreated={onCreate}
+          closeModal={() => setModalOpen(false)}
+        />
+      </Modal>
+)}
+    
+
+
+      {alertModalText && (
+      <Modal isOpen={!!alertModalText} onClose={() => setAlertModalText(null)}>
+        <div className={styles.messageModal}>
+          <h3>Task Wizard says:</h3>
+          <p>{alertModalText}</p>
+          <button onClick={() => setAlertModalText("")}>Okay</button>
+        </div>
+      </Modal>
+    )}
     </div>
   );
 };

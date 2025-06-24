@@ -8,8 +8,14 @@
     }
 }
 
+.subheading {
+    display: flex;
+    gap: 50px;
+}
 
-.messageModal {
+
+.messageModal,
+.catModalContainer {
     background-color: black;
     color: white;
     border-radius: 0.5rem;
@@ -26,12 +32,18 @@
         margin-bottom: 0.5rem;
     }
 
+    input {
+        margin-bottom: 10px;
+
+    }
+
     button {
         background-color: white;
         color: black;
         border: none;
         border-radius: 0.5rem;
         font-weight: bold;
+        margin-top: 10px;
         margin-bottom: 10px;
 
 
