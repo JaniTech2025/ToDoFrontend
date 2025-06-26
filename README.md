@@ -22,11 +22,15 @@ A wizard themed task management App using which you can manage tasks, assign cat
 
 ## Tech Stack
 
-- React + TypeScript
-- Axios (for API calls)
-- Sass modules (for styling)
+![React](https://img.shields.io/badge/Frontend-React-blue?style=for-the-badge&logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-blue?style=for-the-badge&logo=typescript)
+![Spring Boot](https://img.shields.io/badge/Backend-SpringBoot-green?style=for-the-badge&logo=spring-boot)
+![MySQL](https://img.shields.io/badge/Database-MySQL-blue?style=for-the-badge&logo=mysql)
+![Maven](https://img.shields.io/badge/Build-Maven-C71A36?style=for-the-badge&logo=apache-maven)
+![JPA](https://img.shields.io/badge/ORM-JPA-orange?style=for-the-badge)
+![Sass](https://img.shields.io/badge/Style-Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white)
 
-## screenshots
+## Screenshots
 
 ![Task App features](./images/screenshot1.png)
 ![Task App update categories](./images/screenshot3.png)
