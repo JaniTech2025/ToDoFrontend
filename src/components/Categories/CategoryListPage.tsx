@@ -35,6 +35,8 @@ import { useCategory } from "../../context/CategoryContext";
 }
 
   try {
+    const inputCategory = inputRef.current?.value || "";
+    const newCategoryType = inputCategory.charAt(0).toUpperCase() + inputCategory.slice(1).toLowerCase();    
     await addCategory(newCategoryType);
     if (inputRef.current) inputRef.current.value = "";
   } catch (error) {
