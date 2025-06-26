@@ -17,7 +17,6 @@ A wizard themed task management App using which you can manage tasks, assign cat
 - Create new categories
 - REST API based
 - Responsive UI with interactive feedback
-- Full-stack app: React TypeScript frontend + Spring Boot backend
 
 ### Frontend
 
@@ -29,7 +28,7 @@ A wizard themed task management App using which you can manage tasks, assign cat
 
 ![React](https://img.shields.io/badge/Frontend-React-blue?style=for-the-badge&logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-blue?style=for-the-badge&logo=typescript)
-![Spring Boot](https://img.shields.io/badge/Backend-SpringBoot-green?style=for-the-badge&logo=spring-boot)
+![Spring](https://img.shields.io/badge/Framework-Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
 ![MySQL](https://img.shields.io/badge/Database-MySQL-blue?style=for-the-badge&logo=mysql)
 ![Maven](https://img.shields.io/badge/Build-Maven-C71A36?style=for-the-badge&logo=apache-maven)
 ![JPA](https://img.shields.io/badge/ORM-JPA-orange?style=for-the-badge)
