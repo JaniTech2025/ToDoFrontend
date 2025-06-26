@@ -33,14 +33,28 @@ A wizard themed task management App using which you can manage tasks, assign cat
 ![MySQL](https://img.shields.io/badge/Database-MySQL-blue?style=for-the-badge&logo=mysql)
 ![Maven](https://img.shields.io/badge/Build-Maven-C71A36?style=for-the-badge&logo=apache-maven)
 ![JPA](https://img.shields.io/badge/ORM-JPA-orange?style=for-the-badge)
-![Sass](https://img.shields.io/badge/Style-Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white)
+![SCSS](https://img.shields.io/badge/Style-Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white)
 
 ## Screenshots
 
+# App page
+
 ![Task App features](./images/screenshot1.png)
+
+# Task update
+
 ![Task App update categories](./images/screenshot3.png)
+
+# Create task
+
 ![Task App create task](./images/screenshot3.png)
+
+# Edit task
+
 ![Task App edit task](./images/screenshot4.png)
+
+# Delete task
+
 ![Task App delete task](./images/screenshot5.png)
 
 ## Flow diagram
