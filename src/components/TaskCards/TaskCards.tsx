@@ -68,11 +68,17 @@ const TaskCards: React.FC<TaskCardsProps> = ({ tasks, onUpdate, onDelete, onDupl
       closeModal(); 
   }
 
+  const formatDueDate = (dueDate: string): string => {
+    const [year, month, day] = dueDate.slice(0, 10).split("-");
+    return `${month}-${day}-${year}`;
+  };
+
+
   return (
    <div className={styles.cardsContainer}>
       {tasks.map((task) => (
         <div key={task.id} className={styles.card}>
-          <h4>{task.overDue? <FontAwesomeIcon icon={faClock} color="red" /> : <FontAwesomeIcon icon={faClock} color="green" />}{task.taskName}
+          <h4>{task.overDue? <FontAwesomeIcon icon={faClock} color="red" /> : <FontAwesomeIcon icon={faClock} color="green" />}{task.taskName} ({formatDueDate(task.dueDate)})
           </h4>
 
           <hr></hr>

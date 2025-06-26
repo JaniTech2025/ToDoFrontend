@@ -1,10 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Funnel+Display:opsz,wght@6..72,300;800&display=swap');
+
+
+
+
 .addTaskContainer {
 
     h2 {
         margin-bottom: 1rem;
         color: white;
         font-size: 1.2rem;
-        font-family: Arial, sans-serif;
+        // font-family: Arial, sans-serif;
     }
 }
 
@@ -21,16 +26,15 @@
     border-radius: 0.5rem;
     text-align: center;
     height: 90%;
+    font-size: 2rem;
 
-    h3 {
-        font-size: 1.3rem;
-        margin-bottom: 0.5rem;
-    }
 
+    h3,
     p {
-        font-size: 1rem;
+        font-size: 1.2rem;
         margin-bottom: 0.5rem;
     }
+
 
     input {
         margin-bottom: 10px;
@@ -43,6 +47,8 @@
         border: none;
         border-radius: 0.5rem;
         font-weight: bold;
+        font-size: 0.8rem;
+        padding: 8px 10px;
         margin-top: 10px;
         margin-bottom: 10px;
 

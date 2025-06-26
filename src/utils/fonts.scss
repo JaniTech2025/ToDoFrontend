@@ -1,15 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Funnel+Display:opsz,wght@6..72,300;800&display=swap');
-
-h1,
-h2,
-h3 {
+.funnel-display-heading {
     font-family: "Funnel Display", sans-serif;
     font-optical-sizing: auto;
     font-weight: 800;
     font-style: normal;
 }
 
-p {
+
+.funnel-display-paragraph {
     font-family: "Funnel Display", sans-serif;
     font-optical-sizing: auto;
     font-weight: 300;

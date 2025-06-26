@@ -1,9 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Funnel+Display:opsz,wght@6..72,300;800&display=swap');
+
+h1,
+h2,
+h3 {
+    font-family: "Funnel Display", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+}
+
+p {
+    font-family: "Funnel Display", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 100;
+    font-style: normal;
+}
+
 .form {
     background-color: black;
     color: white;
     padding: 1.5rem;
     border-radius: 0.5rem;
-    font-family: Arial, sans-serif;
+    // font-family: Arial, sans-serif;
     max-width: 500px;
     margin: 0 auto;
 
@@ -11,7 +29,7 @@
         display: block;
         font-weight: bold;
         font-size: 0.9rem;
-        margin-bottom: 0.4rem;
+        // margin-bottom: 0.4rem;
         color: white;
     }
 

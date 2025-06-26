@@ -1,84 +1,93 @@
-# Getting Started with Create React App
+# ToDo Task Wizard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<ins>Github links</ins>
+Frontend: https://github.com/JaniTech2025/ToDoFrontend
+Backend: https://github.com/JaniTech2025/ToDoBackend
 
-## Available Scripts
+A full-stack ToDo task management application built with **Spring Java** and **MySql** backend and **React TypeScript** frontend.
+A wizard themed task management App using which you can manage tasks, assign categories and keep your task list enchanted and clean.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- Create, update, delete, and duplicate tasks
+- Assign categories to tasks
+- Create new categories
+- REST API based
+- Responsive UI with interactive feedback
+- Full-stack app: React TypeScript frontend + Spring Boot backend
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Frontend
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+![UI Design inspirations](./images/UI%20Inspiration.png)
 
-### `npm test`
+App.tsx
+├── SideBar
+├── TaskListPage
+│ ├── TaskCards
+│ │ ├── Duplicate, Edit & Delete (icons)
+│ │ └── PickCategory (category checklist)
+│ ├── CategoryListPage (popup modal)
+│ └── AddTaskForm (popup modal)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Tech Stack
 
-### `npm run build`
+- React + TypeScript
+- Axios (for API calls)
+- Sass modules (for styling)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## screenshots
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![Task App features](./images/screenshot1.png)
+![Task App update categories](./images/screenshot3.png)
+![Task App create task](./images/screenshot3.png)
+![Task App edit task](./images/screenshot4.png)
+![Task App delete task](./images/screenshot5.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Flow diagram
 
-### `npm run eject`
+### Backend
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+![MySQL EER Diagram](./images/EERdiagram.png)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Tech Stack
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Spring Java
+- RESTful APIs
+- MySQL
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Endpoints
 
-## Learn More
+- GET /categories
+- POST /categories
+- PUT /categories/:id
+- DELETE /categories/:id \*\* make task category empty
+- GET /todos
+- GET /todos?category={} query parameters
+- POST /todos
+- PUT /todos/:id
+- DELETE /todos/:id
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Checklist
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+![Project task checklist](./images/Checklist.png)
 
-### Code Splitting
+## What I learnt
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- If using lombok, setter and getter may interpret column names differently (isArchived as archived)-
+  can lead to naming mismatches between backend and frontend
+  Preferably use:
+  @Column(name = "archived")
+  private boolean archived;
+- Good to organise a data mapping document with database column types and names
+  and frontend App variable names, as a reference
+- While dealing with an array of objects, check json response for data type from backend
 
-### Analyzing the Bundle Size
+## Future enhancements
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-Design documentation:
-
-Task App
-
-![alt text](image.png)
-
-![alt text](image-1.png)
-
-![alt text](image-2.png)
-
-![alt text](image-3.png)
-
-
+- Add user profiles
+- Add delete category functionality
+- Sort tasks by categories, date
+- In the summary section, when the category is clicked, take user to selected category section.
+- Search tasks between dates
+- Synchronise with calendar apps for notifications to user about an event
+- Add a few more easter eggs
