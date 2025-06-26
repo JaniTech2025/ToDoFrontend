@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { TaskDTO } from "./../services/tasks";
 import TaskCards from "../components/TaskCards/TaskCards";
 import { api } from "../services/api";
@@ -10,14 +10,17 @@ import AddTaskForm from "../components/AddTaskForm/AddTaskForm";
 import styles from "./TaskList.module.scss";
 import CategoryListPage from "../components/Categories/CategoryListPage";
 import { Category } from "../services/categories";
+import { useTasks } from "../context/TaskContext";
+
 
 
 
   const TaskListPage: React.FC = () => {
-  const [tasks, setTasks] = useState<TaskDTO[]>([]);
+  // const [tasks, setTasks] = useState<TaskDTO[]>([]);
   const [isModalOpen, setModalOpen] = useState(false);
   const [isCatModalOpen, setCatModalOpen] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
+  const { tasks, setTasks } = useTasks();
 
 
   const [alertModalText, setAlertModalText] = useState<string | null>(null);  
@@ -31,32 +34,7 @@ import { Category } from "../services/categories";
     setAlertModalText(message);
   };
 
-  useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const [categoriesRes, tasksRes] = await Promise.all([
-        api.get<Category[]>("/categories"),
-        api.get<{ tasks: TaskDTO[] }>("/todos"),
-      ]);
-
-      const fetchedCategories = categoriesRes.data;
-      console.log("categories", fetchedCategories);
-      setCategories(fetchedCategories);
-
-      const fetchedTasks = tasksRes.data.tasks;
-      const filterDeleted = fetchedTasks.filter(task => !task.isArchived);
-      setTasks(filterDeleted);
-
-    } catch (error) {
-      console.error("Failed to fetch data:", error);
-    }
-  };
-
-  fetchData();
-}, []);
-
-
-
+  
   const onUpdate = async (taskToUpdate: TaskDTO) => {
     console.log("this is from TaskListPage", taskToUpdate);
     const updatedTasks = await updateTask(tasks, taskToUpdate);

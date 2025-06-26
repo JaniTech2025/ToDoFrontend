@@ -5,6 +5,7 @@ import TaskListPage from "./pages/TaskListPage";
 // import CategoryListPage from "./pages/CategoryListPage";
 // import { Category } from "./services/categories";
 import { CategoryProvider } from "./context/CategoryContext";
+import { TaskProvider } from "./context/TaskContext";
 
 const App: React.FC = () => {
   // const [category, setCategories] = useState<Category[]>([]);
@@ -12,7 +13,8 @@ const App: React.FC = () => {
 
 
   return (
-    <CategoryProvider>  
+    <TaskProvider>
+     <CategoryProvider>  
         <Router>
           <SideBar>
             <Routes>
@@ -21,7 +23,8 @@ const App: React.FC = () => {
             </Routes>
           </SideBar>
         </Router>
-    </CategoryProvider>      
+      </CategoryProvider>  
+    // </TaskProvider>    
   );
 };
 

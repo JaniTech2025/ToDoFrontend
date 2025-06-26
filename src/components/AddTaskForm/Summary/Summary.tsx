@@ -1,28 +1,16 @@
 import { useEffect, useState } from 'react';
 import { TaskDTO } from '../../../services/tasks';
 import styles from './Summary.module.scss';
-import { api } from '../../../services/api';
+// import { api } from '../../../services/api';
 import { useCategory } from '../../../context/CategoryContext';
 import { Category } from '../../../services/categories';
+import { useTasks } from '../../../context/TaskContext';
 
 function Summary() {
-  const [tasks, setTasks] = useState<TaskDTO[]>([]);
+  // const [tasks, setTasks] = useState<TaskDTO[]>([]);
+  const {tasks, setTasks} = useTasks();
   const {categories} = useCategory();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [tasksRes] = await Promise.all([
-          api.get<{ tasks: TaskDTO[] }>('/todos'),
-        ]);
-        setTasks(tasksRes.data.tasks);
-      } catch (error) {
-        console.error('Failed to fetch data:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
 
 
   const summariseTasks = (tasks: TaskDTO[], categories: Category[]) =>{

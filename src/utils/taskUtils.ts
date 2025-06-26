@@ -12,7 +12,7 @@ const newTask = {
   taskName: `${taskToDuplicate.taskName}_copy` + Date.now().toString().slice(-3),
   dueDate: new Date().toISOString().split("T")[0],
   categoryTypes: taskToDuplicate.categoryTypes ?? [],
-  completed: taskToDuplicate.isCompleted,  
+  completed: taskToDuplicate.completed,  
 };
 
 
@@ -64,7 +64,8 @@ export const deleteTask = async(
   taskId: number
 ): Promise<TaskDTO[]> => {
   try{
-    await api.delete(`/todos/${taskId}`) 
+    console.log("deleting");
+    await api.delete(`/todos/${taskId}`);
   }
   catch(e){
     console.error("Unable to delete task");

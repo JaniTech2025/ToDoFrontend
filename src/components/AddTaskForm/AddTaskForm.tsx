@@ -61,8 +61,8 @@ const AddTaskForm:React.FC<TaskFormProps> = ({tasks, onTaskCreated, closeModal})
           taskName: createName,
           categories: filterCat,
           dueDate: formattedDate,
-          isArchived: false,
-          isCompleted: false,
+          archived: false,
+          completed: false,
           overDue: false,
           id: 0
       };
