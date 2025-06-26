@@ -1,8 +1,11 @@
 # ToDo Task Wizard
 
 <ins>Github links</ins>
-Frontend: https://github.com/JaniTech2025/ToDoFrontend
-Backend: https://github.com/JaniTech2025/ToDoBackend
+Frontend:
+https://github.com/JaniTech2025/ToDoFrontend
+
+Backend:
+https://github.com/JaniTech2025/ToDoBackend
 
 A full-stack ToDo task management application built with **Spring Java** and **MySql** backend and **React TypeScript** frontend.
 A wizard themed task management App using which you can manage tasks, assign categories and keep your task list enchanted and clean.
