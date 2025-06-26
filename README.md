@@ -20,15 +20,6 @@ A wizard themed task management App using which you can manage tasks, assign cat
 
 ![UI Design inspirations](./images/UI%20Inspiration.png)
 
-App.tsx
-├── SideBar
-├── TaskListPage
-│ ├── TaskCards
-│ │ ├── Duplicate, Edit & Delete (icons)
-│ │ └── PickCategory (category checklist)
-│ ├── CategoryListPage (popup modal)
-│ └── AddTaskForm (popup modal)
-
 ## Tech Stack
 
 - React + TypeScript
@@ -44,6 +35,15 @@ App.tsx
 ![Task App delete task](./images/screenshot5.png)
 
 ## Flow diagram
+
+App.tsx
+├── SideBar
+├── TaskListPage
+│ ├── TaskCards
+│ │ ├── Duplicate, Edit & Delete (icons)
+│ │ └── PickCategory (category checklist)
+│ ├── CategoryListPage (popup modal)
+│ └── AddTaskForm (popup modal)
 
 ### Backend
 
