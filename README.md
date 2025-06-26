@@ -56,12 +56,6 @@ App.tsx
 
 ![MySQL EER Diagram](./images/EERdiagram.png)
 
-## Tech Stack
-
-- Spring Java
-- RESTful APIs
-- MySQL
-
 ## Endpoints
 
 - GET /categories
