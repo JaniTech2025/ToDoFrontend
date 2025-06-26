@@ -21,6 +21,8 @@ A wizard themed task management App using which you can manage tasks, assign cat
 
 ### Frontend
 
+## UI Design inspirations
+
 ![UI Design inspirations](./images/UI%20Inspiration.png)
 
 ## Tech Stack
@@ -54,6 +56,8 @@ App.tsx
 
 ### Backend
 
+## EER Diagram
+
 ![MySQL EER Diagram](./images/EERdiagram.png)
 
 ## Endpoints
@@ -61,7 +65,7 @@ App.tsx
 - GET /categories
 - POST /categories
 - PUT /categories/:id
-- DELETE /categories/:id \*\* make task category empty
+- DELETE /categories/:id
 - GET /todos
 - GET /todos?category={} query parameters
 - POST /todos
@@ -90,5 +94,5 @@ App.tsx
 - Sort tasks by categories, date
 - In the summary section, when the category is clicked, take user to selected category section.
 - Search tasks between dates
-- Synchronise with calendar apps for notifications to user about an event
+- email notifications to user about upcoming event
 - Add a few more easter eggs
