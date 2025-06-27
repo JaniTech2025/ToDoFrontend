@@ -1,6 +1,7 @@
 import React, { FormEvent, useState } from "react";
 import styles from "./TaskCards.module.scss";
-import { Category, TaskDTO } from "../../services/tasks";
+import { Category } from "../../services/categories";
+import { TaskDTO } from "../../services/tasks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash, faClone, faClock } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../Modal/Modal";

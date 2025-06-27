@@ -1,5 +1,5 @@
 import React, { FormEvent, useEffect, useState } from "react";
-import { Category } from "../../services/tasks";
+import { Category } from "../../services/categories";
 
 import { api } from "../../services/api";
 

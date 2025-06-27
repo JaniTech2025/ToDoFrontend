@@ -9,8 +9,8 @@ import Modal from "../components/Modal/Modal";
 import AddTaskForm from "../components/AddTaskForm/AddTaskForm";
 import styles from "./TaskList.module.scss";
 import CategoryListPage from "../components/Categories/CategoryListPage";
-import { Category } from "../services/categories";
 import { useTasks } from "../context/TaskContext";
+import { Category } from "./../services/categories";
 
 
 

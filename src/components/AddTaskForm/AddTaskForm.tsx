@@ -1,11 +1,12 @@
 import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 import { TaskDTO } from '../../services/tasks';
 
-import { Category } from '../../services/tasks';
+import { Category } from '../../services/categories';
 import DatePick from '../DatePick';
 import { api } from '../../services/api';
 import {createTask} from '../../utils/taskUtils';
 import styles from "./AddTaskForm.module.scss";
+import { useCategory } from '../../context/CategoryContext';
 
 interface TaskFormProps{
     tasks: TaskDTO[];
@@ -15,7 +16,8 @@ interface TaskFormProps{
 }
 
 const AddTaskForm:React.FC<TaskFormProps> = ({tasks, onTaskCreated, closeModal}) => {
-    const[categories, setCategories] = useState<Category[]>([]);
+    // const[categories, setCategories] = useState<Category[]>([]);
+    const {categories, addCategory} = useCategory();
     const checkboxRefs = React.useRef<(HTMLInputElement | null)[]>([]);  
     const [isModalOpen, setModalOpen] = useState(false);
     const defaultDate = new Date();
@@ -82,19 +84,19 @@ const AddTaskForm:React.FC<TaskFormProps> = ({tasks, onTaskCreated, closeModal})
     };
 
 
-  const fetchCategories = async () => {
-    try {
-        const response = await api.get<Category[]>("/categories");  
-        const fetchedCategories = response.data; 
-        setCategories(fetchedCategories);
-    } catch (error) {
-        console.error("Failed to fetch categories:", error);
-    }
-  };
+  // const fetchCategories = async () => {
+  //   try {
+  //       const response = await api.get<Category[]>("/categories");  
+  //       const fetchedCategories = response.data; 
+  //       setCategories(fetchedCategories);
+  //   } catch (error) {
+  //       console.error("Failed to fetch categories:", error);
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchCategories(); 
-  }, []);   
+  // useEffect(() => {
+  //   fetchCategories(); 
+  // }, []);   
 
 
 return (

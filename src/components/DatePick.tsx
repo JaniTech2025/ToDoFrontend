@@ -21,7 +21,7 @@ const Datepick: React.FC<DatepickProps> = ({ onDateChange }) => {
                 //     { start: new Date(), end: new Date(new Date().setDate(new Date().getDate() + 2)) },
                 // ]}
                 excludeDateIntervals={[
-                    { start: new Date(), end: new Date(new Date().setDate(new Date().getDate())) },
+                    { start: new Date(-8640000000000000), end: new Date(new Date().setDate(new Date().getDate() - 1)) },
                 ]}                
                 selected={new Date(startDate)}
                 onChange={(date) => {

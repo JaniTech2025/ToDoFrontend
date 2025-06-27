@@ -1,7 +1,8 @@
 import { api } from "./api"; 
+// import { Category } from "./tasks";
 
 export interface Category {
-  categoryID?: number;
+  categoryID: number;
   categoryType: string;
 }
 

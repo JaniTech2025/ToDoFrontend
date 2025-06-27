@@ -1,10 +1,11 @@
 import { api } from "./api"; 
+import {Category} from "./categories";
 
 
-export interface Category {
-  categoryID: number;
-  categoryType: string;
-}
+// export interface Category {
+//   categoryID: number;
+//   categoryType: string;
+// }
 
 export interface TaskDTO {
   id: number;
