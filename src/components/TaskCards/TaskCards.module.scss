@@ -7,17 +7,17 @@
 }
 
 .card {
-    background-color: black;
+    // background-color: black;
     border: 1px solid rgba(0, 0, 0, 0.4);
     border-radius: 1rem;
     padding: 1.5rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-    color: white;
-    transition: transform 0.2s ease;
+    // box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    color: black;
+    // transition: transform 0.2s ease;
 
-    &:hover {
-        transform: translateY(-4px);
-    }
+    // &:hover {
+    //     transform: translateY(-4px);
+    // }
 
     h4 {
         font-size: 1.4rem;
@@ -25,45 +25,42 @@
         display: flex;
         align-items: center;
         gap: 0.5rem;
-        color: white;
+        color: black;
     }
 
 
     button {
         background-color: transparent;
-        border: none;
-        color: white;
+        border-color: black;
+
+        color: black;
         margin-right: 0.5rem;
         font-size: 1rem;
 
-        &:hover {
-            color: white;
-        }
+        // &:hover {
+        //     color: black;
+        // }
     }
 
     div>button {
-        background-color: black;
-        color: white;
-        border: 1px solid gray;
+        background-color: transparent;
+        color: black;
+        border: 1px solid black;
         padding: 0.25rem 0.5rem;
         border-radius: 0.5rem;
         margin-bottom: 0.3rem;
         font-size: 1.2rem;
-
-        &:hover {
-            background-color: gray;
-        }
     }
 }
 
 .container {
     padding: 1rem;
-    background-color: black;
+    background-color: white;
     border-radius: 1rem;
 
     h4 {
         margin-bottom: 1rem;
-        color: white;
+        color: black;
     }
 
     form {
@@ -81,14 +78,14 @@
         }
 
         label {
-            color: white;
+            color: black;
             text-transform: capitalize;
         }
 
         button[type="submit"] {
             background-color: white;
             color: black;
-            border: none;
+            border-color: black;
             padding: 0.5rem;
             border-radius: 0.5rem;
             font-weight: bold;
@@ -100,15 +97,16 @@
 
         button[type="button"] {
             background-color: white;
+            border-color: black;
             color: black;
-            border: none;
+            // border: none;
             padding: 0.5rem;
             border-radius: 0.5rem;
             font-weight: bold;
 
-            &:hover {
-                background-color: gray;
-            }
+            // &:hover {
+            //     background-color: gray;
+            // }
         }
     }
 }
@@ -137,17 +135,17 @@
 
 
     button {
-        background-color: black;
-        color: white;
-        border: none;
+        background-color: white;
+        border-color: black;
+        color: black;
         border-radius: 0.5rem;
         font-weight: bold;
         margin-bottom: 10px;
         padding: 0.5rem 1rem;
         font-size: 0.2rem;
 
-        &:hover {
-            background-color: gray;
-        }
+        // &:hover {
+        //     background-color: gray;
+        // }
     }
 }

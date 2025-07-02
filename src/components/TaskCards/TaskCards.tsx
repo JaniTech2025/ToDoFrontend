@@ -7,36 +7,34 @@ import { faEdit, faTrash, faClone, faClock } from "@fortawesome/free-solid-svg-i
 import Modal from "../Modal/Modal";
 import PickCategory from "../PickCategory/PickCategory";
 import {useRef} from "react";
+import { useTasks } from "../../context/TaskContext";
 
 interface TaskCardsProps {
-  tasks: TaskDTO[];
   onUpdate: (taskToUpdate: TaskDTO) => void;
   onDelete: (taskId: number) => void;
   onDuplicate: (taskId: number) => void;
 }
 
-const TaskCards: React.FC<TaskCardsProps> = ({ tasks, onUpdate, onDelete, onDuplicate }) => {
+const TaskCards: React.FC<TaskCardsProps> = ({ onUpdate, onDelete, onDuplicate }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState<TaskDTO | null>(null);
   const [selectedcategories, setSelectedCategories] = useState<Category[]>([]);
   const [taskName, setTaskName] = useState("");  
   const taskNameRef = useRef<HTMLInputElement>(null);
-  const [alertModalText, setAlertModalText] = useState<string | null>(null);  
+  const [alertModalText, setAlertModalText] = useState<string | null>(null); 
+  const { tasks, setTasks } = useTasks();
 
-  // console.log(tasks);
+  // console.log("tasks", tasks);
 
-  const showAlertModal = (message: string) => {
-    setAlertModalText(message);
-  };
 
   const openModal = (task: TaskDTO) => {
       setSelectedTask(task);    
       setIsModalOpen(true);
-      const mapped = task.categories.map((c) => ({
-      categoryID: c.categoryID ?? 0, 
-      categoryType: c.categoryType,
-    }));
-    setSelectedCategories(mapped);    
+    //   const mapped = task.categories.map((c) => ({
+    //   categoryID: c.categoryID, 
+    //   categoryType: c.categoryType,
+    // }));
+    // setSelectedCategories(mapped);    
     setSelectedCategories(task.categories);   
     console.log("Overdue", selectedTask?.overDue); 
     setTaskName(task.taskName);  
@@ -54,6 +52,7 @@ const TaskCards: React.FC<TaskCardsProps> = ({ tasks, onUpdate, onDelete, onDupl
 
       const nameFromInput = taskNameRef.current?.value || "new task";
 
+
       if (!selectedTask) return;
 
       const editedTask: TaskDTO = {
@@ -63,7 +62,9 @@ const TaskCards: React.FC<TaskCardsProps> = ({ tasks, onUpdate, onDelete, onDupl
       };
 
 
-      onUpdate(editedTask);
+
+       onUpdate(editedTask);
+
 
 
       closeModal(); 
@@ -75,16 +76,55 @@ const TaskCards: React.FC<TaskCardsProps> = ({ tasks, onUpdate, onDelete, onDupl
   };
 
 
+
+
+ async function handleChange(taskId: number, isChecked: boolean): Promise<void> {
+  const taskToUpdate = tasks.find((t) => t.id === taskId);
+  if (!taskToUpdate) return;
+
+  const updatedTask: TaskDTO = {
+    ...taskToUpdate,
+    completed: isChecked, 
+  };
+
+
+      
+    try {
+      console.log("sending updatedTask to Tasklist");
+      await onUpdate(updatedTask);
+      console.log("returned to Taskcards");
+      
+    } catch (error) {
+      console.error("Failed to update task", error);
+    }
+
+
+}
   return (
    <div className={styles.cardsContainer}>
       {tasks.map((task) => (
         <div key={task.id} className={styles.card}>
-          <h4>{task.overDue? <FontAwesomeIcon icon={faClock} color="red" /> : <FontAwesomeIcon icon={faClock} color="green" />}{task.taskName} ({formatDueDate(task.dueDate)})
-          </h4>
+          <h4>
+            <input
+              type="checkbox"
+              checked={task.completed}
+              onChange={(e) => handleChange(task.id, e.target.checked)}
+            />
 
+
+          {task.overDue? <FontAwesomeIcon icon={faClock} color="red" /> : <FontAwesomeIcon icon={faClock} color="green" />}
+          
+
+
+            <span style={{ textDecoration: task.completed ? "line-through" : "none" }}>
+              {task.taskName} ({formatDueDate(task.dueDate)})
+            </span>
+          </h4>
           <hr></hr>
           
-          {task.categories?.length > 0 && (
+
+                    
+         {task.categories?.length > 0 && (
             <div className={styles.categoryGroup}>
               {task.categories.map((category, i) => (
                 <button key={i} className={styles.categoryButton}>
@@ -128,7 +168,6 @@ const TaskCards: React.FC<TaskCardsProps> = ({ tasks, onUpdate, onDelete, onDupl
             </div>
           </Modal>
         )}
-
 
     </div>
   );

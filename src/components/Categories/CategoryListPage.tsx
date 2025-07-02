@@ -37,7 +37,8 @@ import { useCategory } from "../../context/CategoryContext";
   try {
     const inputCategory = inputRef.current?.value || "";
     const newCategoryType = inputCategory.charAt(0).toUpperCase() + inputCategory.slice(1).toLowerCase();    
-    await addCategory(newCategoryType);
+    const catUpdate = await addCategory(newCategoryType);
+    console.log("catUpdate", catUpdate, newCategoryType)
     if (inputRef.current) inputRef.current.value = "";
   } catch (error) {
     setModalText("Alas, the spell fizzled! does that category already exist?");
@@ -50,7 +51,7 @@ import { useCategory } from "../../context/CategoryContext";
 
 return (
   <div className={styles.container}>
-    <h1>Update categories</h1>
+    <h1>Update categories</h1><hr/>
 
     <form onSubmit={handleAddCategory}>
       <input name="categoryname" type="text" placeholder="Enter category name" ref={inputRef}/>

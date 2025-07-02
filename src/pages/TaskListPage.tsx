@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { TaskDTO } from "./../services/tasks";
 import TaskCards from "../components/TaskCards/TaskCards";
-import { api } from "../services/api";
-import { createTask, deleteTask, duplicateTask, updateTask, } from "../utils/taskUtils";
+// import { api } from "../services/api";
+// import { createTask, deleteTask, duplicateTask, updateTask, } from "../utils/taskUtils";
+import { useTaskActions } from "../hooks/useTaskActions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHatWizard, faSquarePlus} from "@fortawesome/free-solid-svg-icons";
 import Modal from "../components/Modal/Modal";
@@ -17,10 +18,11 @@ import { Category } from "./../services/categories";
 
   const TaskListPage: React.FC = () => {
   // const [tasks, setTasks] = useState<TaskDTO[]>([]);
+  const { updateTask, deleteTask, createTask, duplicateTask } = useTaskActions();  
   const [isModalOpen, setModalOpen] = useState(false);
   const [isCatModalOpen, setCatModalOpen] = useState(false);
-  const [categories, setCategories] = useState<Category[]>([]);
-  const { tasks, setTasks } = useTasks();
+  // const [categories, setCategories] = useState<Category[]>([]);
+  const { tasks } = useTasks();
 
 
   const [alertModalText, setAlertModalText] = useState<string | null>(null);  
@@ -36,39 +38,51 @@ import { Category } from "./../services/categories";
 
   
   const onUpdate = async (taskToUpdate: TaskDTO) => {
-    console.log("this is from TaskListPage", taskToUpdate);
-    const updatedTasks = await updateTask(tasks, taskToUpdate);
-    showAlertModal("Enchanted and executed: task updated");
-    setTasks(updatedTasks);
+    try {
+      await updateTask(taskToUpdate);
+      // setTasks(tasks);
+      showAlertModal("Enchanted and executed: task updated");
+    } catch (error) {
+      console.error("Failed to update task", error);
+      showAlertModal("Oops! couldn't update task");
+    }
   };
 
   const onDelete = async (taskId: number) => {
-    const updatedTasks = await deleteTask(tasks, taskId);
-    showAlertModal("Enchanted and executed: task deleted");
-    setTasks(updatedTasks);
+        try {
+          await deleteTask(taskId);
+          showAlertModal("Enchanted and executed: task deleted");
+        }
+        catch(error){
+          console.error("Failed to delete task", error);
+          showAlertModal("Oops! couldn't delete task");
+        }
+
   };
 
-    const onCreate = async (newTask: TaskDTO) => {
-      try{
-        const createdTasks = await createTask(tasks, newTask);
-       showAlertModal("Enchanted and executed: task created");
-        setTasks(createdTasks);
-      }
-      catch(error){
-        console.log("Unable to create task", error);
-      }
+  const onCreate = async (newTask: TaskDTO) => {
+    try{
+      await createTask(newTask);
+      showAlertModal("Enchanted and executed: task created");
+    }
+    catch(error){
+      console.log("Unable to create task", error);
+      showAlertModal("Oops! couldn't create task");
+
+    }
   };
 
 
   const onDuplicate = async (taskId: number) => {
     const taskToDuplicate = tasks.find((task) => task.id === taskId);
-    if (!taskToDuplicate) return;
+    if (!taskToDuplicate){ 
+      showAlertModal("Hmm, looks like this task isn’t around anymore — so I can’t make a copy right now");
+      return;
+    }
 
     try {
-      const updatedTasks = await duplicateTask(tasks, taskToDuplicate);
-      setTasks(updatedTasks);
+      await duplicateTask(taskToDuplicate);
       showAlertModal("Your wish is my command: task duplicated");
-
     } catch (error) {
       console.error("Failed to duplicate task", error);
     }
@@ -92,7 +106,6 @@ import { Category } from "./../services/categories";
         <h2>Add Categories <FontAwesomeIcon icon={faSquarePlus} size="lg" onClick={handleAddCategory}/></h2>
       </div>
       <TaskCards
-        tasks={tasks}
         onUpdate={onUpdate}
         onDelete={onDelete}
         onDuplicate={onDuplicate}
@@ -118,7 +131,7 @@ import { Category } from "./../services/categories";
       {alertModalText && (
       <Modal isOpen={!!alertModalText} onClose={() => setAlertModalText(null)}>
         <div className={styles.messageModal}>
-          <h3>Task Wizard says:</h3>
+          <h3>Task Wizard says:</h3><hr/>
           <p>{alertModalText}</p>
           <button onClick={() => setAlertModalText("")}>Okay</button>
         </div>

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Category } from "../../services/categories";
 import styles from "./CategoryListPage.module.scss";
 import { useCategory } from "../../context/CategoryContext";
 

@@ -34,7 +34,7 @@ export const CategoryProvider: React.FC<{ children: ReactNode }> = ({ children }
     if (categories.length >= 10) {
       throw new Error("Whoa there! Your category basket is full.");
     }
-    const response = await categoryService.createCategory({ categoryID: 0, categoryType: newCategoryType.trim() });
+    const response = await categoryService.createCategory({ categoryType: newCategoryType.trim() });
     setCategories((prev) => [...prev, response.data]);
   };
 

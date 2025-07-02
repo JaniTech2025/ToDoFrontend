@@ -1,10 +1,8 @@
-import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
+import React, { FormEvent, useRef } from 'react';
 import { TaskDTO } from '../../services/tasks';
 
 import { Category } from '../../services/categories';
 import DatePick from '../DatePick';
-import { api } from '../../services/api';
-import {createTask} from '../../utils/taskUtils';
 import styles from "./AddTaskForm.module.scss";
 import { useCategory } from '../../context/CategoryContext';
 
@@ -16,19 +14,17 @@ interface TaskFormProps{
 }
 
 const AddTaskForm:React.FC<TaskFormProps> = ({tasks, onTaskCreated, closeModal}) => {
-    // const[categories, setCategories] = useState<Category[]>([]);
-    const {categories, addCategory} = useCategory();
+    const {categories} = useCategory();
     const checkboxRefs = React.useRef<(HTMLInputElement | null)[]>([]);  
-    const [isModalOpen, setModalOpen] = useState(false);
     const defaultDate = new Date();
     const dateRef = useRef<Date | null>(defaultDate);
     const newTaskRef = useRef<HTMLInputElement>(null);
 
 
-      const onCreate = async (taskToCreate: TaskDTO) => {
-        console.log("this is from TaskListPage", taskToCreate);
-        const updatedTasks = await createTask(tasks, taskToCreate);
-      };
+      // const onCreate = async (taskToCreate: TaskDTO) => {
+      //   console.log("this is from TaskListPage", taskToCreate);
+      //   const updatedTasks = await createTask(taskToCreate);
+      // };
 
   
 
@@ -46,7 +42,7 @@ const AddTaskForm:React.FC<TaskFormProps> = ({tasks, onTaskCreated, closeModal})
         const formattedDate = `${yyyy}-${mm}-${dd}`;
         console.log(formattedDate);   
 
-        const createdueDate = dateRef.current!.toISOString().split("T")[0];
+        // const createdueDate = dateRef.current!.toISOString().split("T")[0];
         const createName = newTaskRef.current?.value || "new task";
         // const checklist: string = checkboxRefs.current?.values;
         // console.log('To create new task:\n', createdueDate, createName, checkboxRefs.current);
@@ -77,26 +73,11 @@ const AddTaskForm:React.FC<TaskFormProps> = ({tasks, onTaskCreated, closeModal})
 
 
     const filterCheckedCategories = (
-    allcategories: Category[],
-    selectedcategory: string[]
-    ): Category[] => {
-    return allcategories.filter(c => selectedcategory.includes(c.categoryType));
+        allcategories: Category[],
+        selectedcategory: string[]
+        ): Category[] => {
+        return allcategories.filter(c => selectedcategory.includes(c.categoryType));
     };
-
-
-  // const fetchCategories = async () => {
-  //   try {
-  //       const response = await api.get<Category[]>("/categories");  
-  //       const fetchedCategories = response.data; 
-  //       setCategories(fetchedCategories);
-  //   } catch (error) {
-  //       console.error("Failed to fetch categories:", error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchCategories(); 
-  // }, []);   
 
 
 return (
