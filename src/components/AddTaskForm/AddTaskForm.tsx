@@ -20,19 +20,6 @@ const AddTaskForm:React.FC<TaskFormProps> = ({tasks, onTaskCreated, closeModal})
     const dateRef = useRef<Date | null>(defaultDate);
     const newTaskRef = useRef<HTMLInputElement>(null);
 
-
-      // const onCreate = async (taskToCreate: TaskDTO) => {
-      //   console.log("this is from TaskListPage", taskToCreate);
-      //   const updatedTasks = await createTask(taskToCreate);
-      // };
-
-  
-
-      // const closeModal = () => setModalOpen(false);
-
-    
-
-
     function handleSubmit(event: FormEvent<HTMLFormElement>): void {
         event.preventDefault();
 
@@ -42,10 +29,7 @@ const AddTaskForm:React.FC<TaskFormProps> = ({tasks, onTaskCreated, closeModal})
         const formattedDate = `${yyyy}-${mm}-${dd}`;
         console.log(formattedDate);   
 
-        // const createdueDate = dateRef.current!.toISOString().split("T")[0];
         const createName = newTaskRef.current?.value || "new task";
-        // const checklist: string = checkboxRefs.current?.values;
-        // console.log('To create new task:\n', createdueDate, createName, checkboxRefs.current);
         const newTaskCategories = checkboxRefs.current
                                      .filter((box) => box!.checked)
                                      .map((box) => box!.value);
@@ -66,7 +50,6 @@ const AddTaskForm:React.FC<TaskFormProps> = ({tasks, onTaskCreated, closeModal})
       };
 
        onTaskCreated(taskToCreate); 
-      //  onTasksUpdated(tasks);
        closeModal(); 
 
     }

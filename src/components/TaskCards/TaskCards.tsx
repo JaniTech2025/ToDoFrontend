@@ -24,17 +24,10 @@ const TaskCards: React.FC<TaskCardsProps> = ({ onUpdate, onDelete, onDuplicate }
   const [alertModalText, setAlertModalText] = useState<string | null>(null); 
   const { tasks, setTasks } = useTasks();
 
-  // console.log("tasks", tasks);
-
 
   const openModal = (task: TaskDTO) => {
       setSelectedTask(task);    
       setIsModalOpen(true);
-    //   const mapped = task.categories.map((c) => ({
-    //   categoryID: c.categoryID, 
-    //   categoryType: c.categoryType,
-    // }));
-    // setSelectedCategories(mapped);    
     setSelectedCategories(task.categories);   
     console.log("Overdue", selectedTask?.overDue); 
     setTaskName(task.taskName);  
@@ -44,7 +37,6 @@ const TaskCards: React.FC<TaskCardsProps> = ({ onUpdate, onDelete, onDuplicate }
   const handleDataFromChild = (data: Category[]) => {
     setSelectedCategories(data);
   };
-
 
 
   function handleSubmit(event: FormEvent<HTMLFormElement>): void {
@@ -62,17 +54,14 @@ const TaskCards: React.FC<TaskCardsProps> = ({ onUpdate, onDelete, onDuplicate }
       };
 
 
-
-       onUpdate(editedTask);
-
-
+      onUpdate(editedTask);
 
       closeModal(); 
   }
 
   const formatDueDate = (dueDate: string): string => {
     const [year, month, day] = dueDate.slice(0, 10).split("-");
-    return `${month}-${day}-${year}`;
+    return `${day}-${month}-${year}`;
   };
 
 

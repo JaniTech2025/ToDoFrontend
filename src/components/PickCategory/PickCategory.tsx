@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Category } from "../../services/categories";
 
 import { api } from "../../services/api";

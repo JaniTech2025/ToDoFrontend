@@ -59,7 +59,8 @@ export const useTaskActions = () => {
       taskName: `${taskToDuplicate.taskName}_copy${Date.now().toString().slice(-3)}`,
       dueDate: new Date().toISOString().split("T")[0],
       categoryTypes: taskToDuplicate.categoryTypes ?? [],
-      completed: taskToDuplicate.completed,
+      completed: false,
+      archived: false
     };
 
     const payload = newTask.categories.length > 0

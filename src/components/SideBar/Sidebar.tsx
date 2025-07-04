@@ -1,23 +1,31 @@
-import React, { ReactNode, useEffect, useState } from "react";
-// import { Link, useLocation } from "react-router-dom";
+import React, { ReactNode} from "react";
 import styles from "./Sidebar.module.scss";
 import Summary from "../AddTaskForm/Summary/Summary";
-import { TaskDTO } from "../../services/tasks";
-import { api } from "../../services/api";
+import { Toggle } from "../Toggle/Toggle";
 
 interface SideBarProps {
   children: ReactNode;
+  isDark: boolean;
+  handleThemeToggle: () => void;  
 }
 
-const SideBar: React.FC<SideBarProps> = ({ children }) => {
-
+const SideBar: React.FC<SideBarProps> = ({ children, isDark, handleThemeToggle }) => {
   return (
     <div className={styles.container}>
       <aside className={styles.sidebar}>
         <nav className={styles.nav}>
-          <h1>All sorted, by spell and style<hr/></h1>
-          
-          <Summary/>
+        
+           <div className={styles.toggleWrapper}>
+            <Toggle isChecked={isDark} handleChange={handleThemeToggle} />
+          </div>
+
+          <h1>
+            All sorted, by spell and style
+            <hr/>
+          </h1>
+         
+
+          <Summary />
         </nav>
       </aside>
 
@@ -25,5 +33,6 @@ const SideBar: React.FC<SideBarProps> = ({ children }) => {
     </div>
   );
 };
+
 
 export default SideBar;

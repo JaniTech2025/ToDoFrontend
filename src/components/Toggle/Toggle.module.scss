@@ -1,0 +1,67 @@
+.toggleContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    top: 2em;
+    right: 2em;
+}
+
+.toggle {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    pointer-events: none;
+}
+
+.toggleLabel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    font-size: 1.2em;
+    cursor: pointer;
+    color: var(--primary-text-color);
+    user-select: none;
+
+    &::before {
+        content: "";
+        display: inline-block;
+        height: 1em;
+        width: 2em;
+        border-radius: 1em;
+        background-color: var(--toggle-background);
+        margin-right: 0.5em;
+        transition: background-color 250ms ease-in-out;
+        border: 1px solid var(--primary-text-color);
+    }
+
+    &::after {
+        content: "";
+        display: inline-block;
+        height: 0.8em;
+        width: 0.8em;
+        border-radius: 50%;
+        background-color: var(--toggle-foreground);
+        position: absolute;
+        left: 0.2em;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: background-color 250ms ease-in-out, transform 250ms ease-in-out;
+    }
+}
+
+.toggle:checked+.toggleLabel::after {
+    transform: translate(100%, -50%);
+}
+
+.toggle:checked+.toggleLabel::before {
+    background-color: var(--toggle-foreground);
+}
+
+.toggle:checked+.toggleLabel::after {
+    background-color: var(--toggle-background);
+    transform: translate(100%, -50%);
+}

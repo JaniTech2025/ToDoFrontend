@@ -40,7 +40,6 @@ import { Category } from "./../services/categories";
   const onUpdate = async (taskToUpdate: TaskDTO) => {
     try {
       await updateTask(taskToUpdate);
-      // setTasks(tasks);
       showAlertModal("Enchanted and executed: task updated");
     } catch (error) {
       console.error("Failed to update task", error);

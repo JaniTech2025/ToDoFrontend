@@ -1,5 +1,4 @@
 import React, { FormEvent, useEffect, useRef, useState } from "react";
-import { Category, categoryService } from "../../services/categories";
 import Modal from "../Modal/Modal";
 import styles from "./CategoryListPage.module.scss";
 import ListCategories from "./ListCategories";
