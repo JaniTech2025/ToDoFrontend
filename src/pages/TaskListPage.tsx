@@ -98,11 +98,11 @@ import { Category } from "./../services/categories";
 
   return (
       <div>
-        <h1>Task wizard <FontAwesomeIcon icon={faHatWizard} size="lg"/></h1> 
+        <h1 className={styles.heading}>Task wizard <FontAwesomeIcon icon={faHatWizard} size="lg"/></h1> 
         <hr></hr>
         <div className={styles.subheading}>
-        <h2>Add Task <FontAwesomeIcon icon={faSquarePlus} size="lg" onClick={handleAddTask}/></h2>
-        <h2>Add Categories <FontAwesomeIcon icon={faSquarePlus} size="lg" onClick={handleAddCategory}/></h2>
+        <h2 className={styles.heading}>Add Task <FontAwesomeIcon icon={faSquarePlus} size="lg" onClick={handleAddTask}/></h2>
+        <h2 className={styles.heading}>Add Categories <FontAwesomeIcon icon={faSquarePlus} size="lg" onClick={handleAddCategory}/></h2>
       </div>
       <TaskCards
         onUpdate={onUpdate}

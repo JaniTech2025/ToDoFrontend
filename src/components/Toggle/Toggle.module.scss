@@ -23,7 +23,7 @@
     align-items: center;
     font-size: 1.2em;
     cursor: pointer;
-    color: var(--primary-text-color);
+    color: black;
     user-select: none;
 
     &::before {
@@ -35,7 +35,7 @@
         background-color: var(--toggle-background);
         margin-right: 0.5em;
         transition: background-color 250ms ease-in-out;
-        border: 1px solid var(--primary-text-color);
+        border: 1px solid black;
     }
 
     &::after {
@@ -50,6 +50,7 @@
         top: 50%;
         transform: translateY(-50%);
         transition: background-color 250ms ease-in-out, transform 250ms ease-in-out;
+
     }
 }
 

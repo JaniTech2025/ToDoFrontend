@@ -7,17 +7,12 @@
 }
 
 .card {
-    // background-color: black;
+    background-color: var(--foreground-color);
     border: 1px solid rgba(0, 0, 0, 0.4);
     border-radius: 1rem;
     padding: 1.5rem;
-    // box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-    color: black;
-    // transition: transform 0.2s ease;
+    color: var(--primary-text-color);
 
-    // &:hover {
-    //     transform: translateY(-4px);
-    // }
 
     h4 {
         font-size: 1.4rem;
@@ -25,27 +20,21 @@
         display: flex;
         align-items: center;
         gap: 0.5rem;
-        color: black;
+        color: var(--primary-text-color);
     }
-
 
     button {
         background-color: transparent;
-        border-color: black;
-
-        color: black;
+        border-color: var(--primary-text-color);
+        color: var(--primary-text-color);
         margin-right: 0.5rem;
         font-size: 1rem;
-
-        // &:hover {
-        //     color: black;
-        // }
     }
 
     div>button {
         background-color: transparent;
-        color: black;
-        border: 1px solid black;
+        color: var(--primary-text-color);
+        border: 1px solid var(--primary-text-color);
         padding: 0.25rem 0.5rem;
         border-radius: 0.5rem;
         margin-bottom: 0.3rem;
@@ -55,12 +44,12 @@
 
 .container {
     padding: 1rem;
-    background-color: white;
+    background-color: var(--foreground-color);
     border-radius: 1rem;
 
     h4 {
         margin-bottom: 1rem;
-        color: black;
+        color: var(--primary-text-color);
     }
 
     form {
@@ -73,47 +62,38 @@
             font-size: 1rem;
             border-radius: 0.5rem;
             border: 1px solid gray;
-            background-color: white;
-            color: black;
+            background-color: var(--foreground-color);
+            color: var(--primary-text-color);
         }
 
         label {
-            color: black;
+            color: var(--primary-text-color);
             text-transform: capitalize;
         }
 
         button[type="submit"] {
-            background-color: white;
-            color: black;
-            border-color: black;
+            background-color: var(--foreground-color);
+            color: var(--primary-text-color);
+            border-color: var(--primary-text-color);
             padding: 0.5rem;
             border-radius: 0.5rem;
             font-weight: bold;
-
-            &:hover {
-                background-color: white;
-            }
         }
 
         button[type="button"] {
-            background-color: white;
-            border-color: black;
-            color: black;
-            // border: none;
+            background-color: var(--foreground-color);
+            border-color: var(--primary-text-color);
+            color: var(--primary-text-color);
             padding: 0.5rem;
             border-radius: 0.5rem;
             font-weight: bold;
-
-            // &:hover {
-            //     background-color: gray;
-            // }
         }
     }
 }
 
 .messageModal {
-    background-color: white;
-    color: black;
+    background-color: var(--foreground-color);
+    color: var(--primary-text-color);
     border-radius: 1rem;
     text-align: center;
     padding: 1rem 1.5rem;
@@ -132,20 +112,14 @@
         margin-bottom: 0.5rem;
     }
 
-
-
     button {
-        background-color: white;
-        border-color: black;
-        color: black;
+        background-color: var(--foreground-color);
+        border-color: var(--primary-text-color);
+        color: var(--primary-text-color);
         border-radius: 0.5rem;
         font-weight: bold;
         margin-bottom: 10px;
         padding: 0.5rem 1rem;
         font-size: 0.2rem;
-
-        // &:hover {
-        //     background-color: gray;
-        // }
     }
 }
